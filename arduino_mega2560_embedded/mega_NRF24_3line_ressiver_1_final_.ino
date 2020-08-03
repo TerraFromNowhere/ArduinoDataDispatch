@@ -199,12 +199,12 @@ void radioSetup(){
       Serial.println(data[2]/1000);
       Serial.println();
       myOLED.clrScr();
-      myOLED.print(F("Temp:"), 1,   1);
-      myOLED.print((data[0]), 65,     1);
-      myOLED.print(F("Hum."), 1,     4);
-      myOLED.print((data[1]), 65,     4);
-      myOLED.print(F("Volt."), 1,     7);
-      myOLED.print((data[2]/1000), 65,     7);
+      myOLED.print(F("Temp:"), 1,  1);
+      myOLED.print((data[0]), 65, 1);
+      myOLED.print(F("Hum."), 1,  4);
+      myOLED.print((data[1]), 65, 4);
+      myOLED.print(F("Volt."), 1, 7);
+      myOLED.print((data[2]/1000), 65, 7);
      
     
       sdcardSerialize(data);
