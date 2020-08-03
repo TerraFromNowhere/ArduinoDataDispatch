@@ -1,7 +1,7 @@
 {
   "name": "arduino_embedded_server",
   "version": "1.0.0",
-  "description": "Web server which provide to  user sensor data from Arduino Mega 2560.",
+  "description": "Web server which provide sensor data from Arduino Mega 2560 to  user .",
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1"
@@ -10,6 +10,7 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -34,7 +35,7 @@
     "test": "test",
     "server": "node server.js",
     "build": "webpack",
-    "dev":"webpack-dev-server --hot --inline"
+    "dev": "webpack-dev-server --hot --inline"
   },
   "author": "Dmitry Ok.",
   "license": "ISC"
