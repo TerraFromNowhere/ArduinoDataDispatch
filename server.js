@@ -8,6 +8,7 @@ const parser = require('body-parser');
 
 const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth()+1;
+const currentHour = new Date().getHours();
 
 //db init, return REF
 const F = require('./db/db.js');
@@ -34,7 +35,7 @@ application.post('/',(req,res)=>{
     console.log(`Data received from sensor : ${req.body.Sensor_ID}`);
 
     if(req.body.Sensor_ID === "1"){
-        FBD.child(`${currentYear}/Month_${currentMonth}/SENSOR_${req.body.Sensor_ID}`).push(req.body).getKey();
+        FBD.child(`${currentYear}/Month_${currentMonth}/Hour_${currentHour}/SENSOR_${req.body.Sensor_ID}`).push(req.body).getKey();
         console.log(req.body);  
     }
  

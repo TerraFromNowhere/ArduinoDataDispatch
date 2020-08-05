@@ -17,16 +17,17 @@ import "firebase/firestore";
   }
 
   export const initApp = () => {
-    return  firebase.initializeApp(getConfig());
+   return firebase.initializeApp(getConfig());  
   }
 
   export const getData = () => {
-     return  firebase.database().ref("DATA/Month_8").once("value").then((data)=>{
-        return data;
-     })
-        
-        
+    const db = firebase.database();
+    return db;
   }
+
+        
+        
+  
 
   
   
