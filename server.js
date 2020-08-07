@@ -25,7 +25,7 @@ application.use(parser.json());
 application.post('/',(req,res)=>{
 
     if(!req.body){
-        console.log("Request.body is undefined!");
+        console.log("Body of request is undefined!");
     }
 
     if(currentMonth !== new Date().getMonth()+1){

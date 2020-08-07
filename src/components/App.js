@@ -1,4 +1,4 @@
-import React , {Component,useEffect,useState} from "react";
+import React , {Component,useEffect,useState, useRef} from "react";
 import {getData,initApp} from './dataHandlers/firebase';
 
 
@@ -12,28 +12,48 @@ const componentDidMount = () =>{
     },[]);
 }
 
+
+
+
 const App = () =>{
       
     componentDidMount();
     let [data,stateData] = useState([]);
+    let [dataKeys,keys] = useState([]);
 
-    const keys = (obj) =>{
-        return Object.keys(obj);    
-    }
 
-    let k = [];
+    const componentShouldUpdate = React.memo(App,(prevState,nextState)=>{
+        return prevState.dataKeys === nextState.dataKeys;
+    })
+    
+    React.useEffect(()=>{
+        componentShouldUpdate;
+    },[dataKeys]);
+
 
     return (
-        <div style={{display:"flex",backgroundColor:"red",width:"100px",height:"100px",justifyContent:"center",alignItems:"center"}}>
-             <div style={{fontWeight:"bold"}}>Hello</div>             
+        <div style={{display:"flex",backgroundColor:"grey",justifyContent:"space-around",alignItems:"center"}}>
+             <div style={{fontWeight:"bold",fontSize:"16px",fontFamily:"ComicSans"}}><span style={{color:"orange",fontSize:"20px"}}>W</span>ernox sensor data tracker</div>             
              <button onClick = {()=>{getData().ref("DATA/2020/Month_8/SENSOR_1").once("value").then(items=>{
                  stateData(items.val());
+                 keys(Object.keys(items.val()));
              })}}>GET DATA</button>
+                             
+            <button onClick={()=>{   console.log(dataKeys)}}>Log my state</button>
 
-            <button onClick={()=>{  k = keys(data); console.log(data[k[0]])}}>Log my state</button>
-            {
-                <div>{data[k[0]].Temperature}</div>
-            }
+         {
+             dataKeys.map((item,i)=>{
+             return <div style={{border:" 2px solid red"}} key = {i}>
+
+               <div> Sensor_id : {data[item].Sensor_ID} </div>
+               <div> Temperature : {data[item].Temperature}C</div>
+               <div> Humidity : {data[item].Humidity}%   </div>
+               <div> Voltage : {data[item].Voltage}V    </div>
+
+                    </div>
+             })
+         }    
+             
         </div>
 
     
@@ -42,4 +62,4 @@ const App = () =>{
 
 }
 
-export default App;
+export default App; 
