@@ -1,12 +1,14 @@
-import React , {useState,useEffect} from "react";
-import axios from 'axios';
+import {getData} from './firebase.js'
 
 
-const queryToFirebase = () => {
+export const getDataPerUnitOfTime = (stateData,keys,queryString = String) =>{
 
-    let [sensorData , setSensorData] = useState([]);
+   return getData().ref(queryString).once('value').then(items =>{
+        stateData(items.val());
+        keys(Object.keys(items.val()));
+   }).catch(e =>{
+       throw new Error(`Error ${e}`)
+   });
 
-    useEffect(()=>{
-        axios.get();
-    },[])
 }
+

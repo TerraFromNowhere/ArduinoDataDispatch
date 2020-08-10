@@ -4,7 +4,7 @@ import "firebase/firestore";
 
 
   const getConfig = () =>{
-    return ( {
+    return ({
         apiKey: "AIzaSyBl-HhlMHWhmDhtbzq5NXlVexuPu90jsrU",
         authDomain: "sensordatastore-7af61.firebaseapp.com",
         databaseURL: "https://sensordatastore-7af61.firebaseio.com",
@@ -26,13 +26,3 @@ import "firebase/firestore";
   }
 
         
-        
-  
-
-  
-  
-
-
-/*   firebase.auth().signInWithEmailAndPassword(email,password).catch(err =>{
-      console.log(err);
-  }) */
