@@ -38,7 +38,7 @@ const App = () =>{
         <div style={{}}>
 
              <div style={{fontWeight:"bold",fontSize:"16px",fontFamily:"ComicSans",display:"flex",backgroundColor:"grey",justifyContent:"center",alignItems:"center",height:"10rem"}}>
-             <a><img src={logo} alt="Company logo"></img></a>
+             <a href={'http://wernox.ru/'}><img src={logo} alt="Company logo"></img></a>
                  <span><span style={{color:"orange",fontSize:"20px"}}>W</span>ernox sensor data tracker</span></div> 
 
              <div style={{display:"flex",justifyContent:"center", width:""}}> <button style ={{width:"190px",height:"130px",color:"orange",fontSize:"30px"}} onClick = {()=>{getData().ref("DATA/2020/Month_8/Hour_10/SENSOR_1").once("value").then(items=>{
