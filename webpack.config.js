@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const momentLocaleKeeper = require('moment-locales-webpack-plugin');
 
 module.exports = {
 
@@ -23,20 +24,6 @@ module.exports = {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
             },
-/*             {
-                test: /\.(gif|png|jpe?g|svg)$/i,
-                use: [
-                  'file-loader',
-                  {
-                    loader: 'image-webpack-loader',
-                    options: {
-                      bypassOnDebug: true, 
-                      disable: true,  
-                    },
-                  }
-            
-                ]
-            }, */
             {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
@@ -52,13 +39,14 @@ module.exports = {
         new HtmlWebpackPlugin(
             {
             inject: false,
+            favicon: path.resolve(__dirname+'/src/components/img/favicon.ico'),
             templateContent: () => `
             <html>
 
             <head>
-              <meta charset="utf-8">
+            <link rel = "favicon" type = "image/x-icon" href = "favicon.ico">
               <title>ArduinoDataDispatcher</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"></head>
             <body>
                 <div id="root"></div>
                 <script type="text/javascript" src="app.bundle.js"></script>
@@ -67,7 +55,10 @@ module.exports = {
             </html>
             `
           } 
-          )
+          ),
+        new momentLocaleKeeper({
+          localesToKeep:['es-us','ru']
+        })
     ],
 
     output:{
