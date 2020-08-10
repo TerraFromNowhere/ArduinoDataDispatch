@@ -21,6 +21,8 @@
     "firebase-tools": "^8.6.0",
     "html-webpack-plugin": "^4.3.0",
     "image-webpack-loader": "^6.0.0",
+    "moment": "^2.27.0",
+    "moment-locales-webpack-plugin": "^1.2.0",
     "node-firebird": "^0.9.3",
     "pg": "^8.3.0",
     "postgres": "^1.0.2",
