@@ -6,17 +6,17 @@ import {Home} from '../containers/pages/home';
 import logo from '../img/logoWernox.png';
 
 
-const headerStyle = {fontWeight:"bold",fontSize:"16px",display:"flex",backgroundColor:"grey",justifyContent:"center",alignItems:"center",height:"10rem"};
+const headerStyle = {fontWeight:"bold",fontSize:"16px",display:"flex",backgroundColor:"",justifyContent:"",alignItems:"center",height:""};
 
 
-export const Header = (stateData,keys,getDataPerUnitOfTime,style) => {
+export const Header = () => {
     return (<div style = {headerStyle}>
         <Router>
             <div>
                 <a href={'http://wernox.ru/'}><img src={logo} alt="Company logo"></img></a>
                 <span><span style={{color:"orange",fontSize:"20px"}}>W</span>ernox sensor data tracker</span>
                 <nav>
-                    <ul>
+                    <ul style = {{display:"flex",justifyContent:"space-around",listStyle:"none"}}>
                         <li><Link to = "/">Home</Link></li>
                         <li><Link to = "/sensor">Detailed sensor</Link></li>
                         <li><Link to = "/brief">Short brief</Link></li>
@@ -25,7 +25,7 @@ export const Header = (stateData,keys,getDataPerUnitOfTime,style) => {
                 <Switch>
                     <Route path = "/brief"><Brief/></Route>
                     <Route path = "/sensor"><Sensor/></Route>
-                    <Route path = "/home"><Home stateData = {stateData} keys = {keys} getDataPerUnitOfTime = {getDataPerUnitOfTime}/></Route>   
+                    <Route path = "/"><Home/></Route>   
                 </Switch>
             </div>
         </Router>
