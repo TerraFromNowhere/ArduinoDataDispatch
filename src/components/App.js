@@ -1,37 +1,39 @@
-import React , {useEffect,useState} from "react";
+import React , {useState} from "react";
 import {Header} from "./containers/header";
-import {getData,initApp} from './dataHandlers/firebase';
-import {getDataPerUnitOfTime} from './dataHandlers/query';
+import {initApp} from './dataHandlers/firebase';
 
 
 
 
 
-let [data,stateData] = useState([]);
-let [dataKeys,keys] = useState([]);
+
+ const componentDidMount = () =>{
+    React.useEffect(()=>{
+         if(initApp()){
+             console.log("App initialized");
+         };
+    },[]);
+}
+
+
+const componentShouldUpdate = React.memo(App,(prevState,nextState)=>{
+    return prevState.dataKeys === nextState.dataKeys;
+}) 
 
 
 const App = () =>{
 
-
-    const componentDidMount = () =>{
-        useEffect(()=>{
-             if(initApp()){
-                 console.log("App initialized");
-             };
-        },[]);
-    }
+     componentDidMount(); 
+     let [data,stateData] = useState([]);
+     let [dataKeys,keys] = useState([]);
     
-    const componentShouldUpdate = React.memo(App,(prevState,nextState)=>{
-        return prevState.dataKeys === nextState.dataKeys;
-    })
-    
-    React.useEffect(()=>{
+     React.useEffect(()=>{
         componentShouldUpdate;
     },[dataKeys]);
+    
+   
 
-    componentDidMount();
-
+   
     return (
 
         <div>
