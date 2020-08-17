@@ -18,7 +18,7 @@
     "file-loader": "^6.0.0",
     "firebase": "^7.17.1",
     "firebase-admin": "^9.0.0",
-    "firebase-tools": "^8.6.0",
+    "firebase-tools": "^8.7.0",
     "html-webpack-plugin": "^4.3.0",
     "image-webpack-loader": "^6.0.0",
     "moment": "^2.27.0",
@@ -33,6 +33,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "style-loader": "^1.2.1",
+    "styled-components": "^5.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
