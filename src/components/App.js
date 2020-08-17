@@ -1,5 +1,6 @@
 import React , {useState} from "react";
 import {Header} from "./containers/header";
+import {Footer} from './containers/footer';
 import {initApp} from './dataHandlers/firebase';
 
 
@@ -16,28 +17,20 @@ import {initApp} from './dataHandlers/firebase';
 }
 
 
-const componentShouldUpdate = React.memo(App,(prevState,nextState)=>{
-    return prevState.dataKeys === nextState.dataKeys;
-}) 
-
 
 const App = () =>{
 
      componentDidMount(); 
      let [data,stateData] = useState([]);
      let [dataKeys,keys] = useState([]);
-    
-     React.useEffect(()=>{
-        componentShouldUpdate;
-    },[dataKeys]);
-    
-   
+      
 
    
     return (
 
         <div>
-            <Header></Header>                      
+            <Header></Header>
+            <Footer></Footer>                      
         </div>
        
     );
