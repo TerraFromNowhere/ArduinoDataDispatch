@@ -1,5 +1,5 @@
 import React from "react";
-import {DivRowFlex,DivColFlex,SpanHeaders,SpanText,LinkFooter} from './styledContainers/sComponents';
+import {DivRowFlex,DivRowFlexFooter,DivColFlex,SpanHeaders,SpanText,LinkFooter,SpanTextFooter,FooterStyled} from './styledContainers/sComponents';
 
 const footerStyle = {
     backgroundColor:"#eff4fa"
@@ -9,7 +9,7 @@ const footerStyle = {
 
 export const Footer = () => {
     return(
-        <footer style = {footerStyle}>
+        <FooterStyled style = {footerStyle}>
             <DivRowFlex>   
                 <DivColFlex >
                     <SpanHeaders>Контакты</SpanHeaders>
@@ -39,9 +39,10 @@ export const Footer = () => {
                     <LinkFooter target="_blank" href="https://www.youtube.com/channel/UCDR-LWNjNTfWKrQeYbhfvUg">Youtube</LinkFooter>
                 </DivColFlex>
             </DivRowFlex>
-            <DivRowFlex>
-                <SpanText></SpanText>
-            </DivRowFlex>
-        </footer>
+            <DivRowFlexFooter>
+                <SpanTextFooter>2020 All rights reserved.</SpanTextFooter>
+                <SpanTextFooter>Wernox</SpanTextFooter>
+            </DivRowFlexFooter>
+        </FooterStyled>
     );
 }
