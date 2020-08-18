@@ -4,23 +4,24 @@ import {Brief} from './pages/brief';
 import {Sensor} from "./pages/sensor";
 import {Home} from '../containers/pages/home';
 import logo from '../img/logoWernox.png';
-
-
-const headerStyle = {fontWeight:"bold",fontSize:"16px",display:"flex",backgroundColor:"",justifyContent:"",alignItems:"center",height:""};
+import {DivRowFlexHeader,UlFlexNav,LinkNav} from '../containers/styledContainers/sComponents';
 
 
 export const Header = () => {
-    return (<div style = {headerStyle}>
+    return (<div >
         <Router>
             <div>
+
+            <DivRowFlexHeader>
                 <a href={'http://wernox.ru/'}><img src={logo} alt="Company logo"></img></a>
-                <span><span style={{color:"orange",fontSize:"20px"}}>W</span>ernox sensor data tracker</span>
+            </DivRowFlexHeader>
+
                 <nav>
-                    <ul style = {{display:"flex",justifyContent:"space-around",listStyle:"none"}}>
-                        <li><Link to = "/">Home</Link></li>
-                        <li><Link to = "/sensor">Detailed sensor</Link></li>
-                        <li><Link to = "/brief">Short brief</Link></li>
-                    </ul>
+                    <UlFlexNav>
+                        <li><LinkNav to = "/">HOME</LinkNav></li>
+                        <li><LinkNav to = "/sensor">DETAILED SENSORS</LinkNav></li>
+                        <li><LinkNav to = "/brief">SHORT BRIEF</LinkNav></li>
+                    </UlFlexNav>
                 </nav>
                 <Switch>
                     <Route path = "/brief"><Brief/></Route>
