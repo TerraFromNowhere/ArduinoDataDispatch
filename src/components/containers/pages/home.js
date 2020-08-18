@@ -1,6 +1,7 @@
 import React , {useState} from 'react';
-import {getData} from '../../dataHandlers/firebase';
 import {getDataPerUnitOfTime} from '../../dataHandlers/query';
+import {Choke} from '../choke';
+import {DivButtonContainer,ButtonSensorMode,DivDataContainer,DivDataWrapper} from '../styledContainers/sComponents';
 
    
 export const Home = () => {
@@ -12,29 +13,34 @@ export const Home = () => {
 
         <div>
 
-        <div style={{display:"flex",justifyContent:"center", width:""}}> <button style ={{width:"",height:"",color:"orange",fontSize:"20px"}} onClick = {()=>{getData().ref("DATA/2020/Month_8/Hour_10/SENSOR_1").once("value").then(items=>{
-            getDataPerUnitOfTime(stateData,keys,`DATA/2020/Month_8/Hour_10/SENSOR_1`) 
-                    })}}>GET DATA</button>
-        <button>GET REAL TIME DATA  (refresh every n second)</button>
-        <button onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/2020/Month_8/Hour_10/SENSOR_1`)}}>GET DATA PER HOUR</button>
-        <button>GET DATA PER DAY</button>
-        <button>GET DATA PER WEEK</button>            
-        <button onClick={()=>{console.log(dataKeys)}}>Log my state</button> </div>
+        <DivButtonContainer> 
+
+            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/2020/Month_8/Hour_10/SENSOR_1`)}}>GET DATA</ButtonSensorMode>
+            <ButtonSensorMode>GET REAL TIME DATA  (refresh every n second)</ButtonSensorMode>
+            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/2020/Month_8/Hour_10/SENSOR_1`)}}>GET DATA PER HOUR</ButtonSensorMode>
+            <ButtonSensorMode>GET DATA PER DAY</ButtonSensorMode>
+            <ButtonSensorMode>GET DATA PER WEEK</ButtonSensorMode> 
+
+         </DivButtonContainer>
+         <div style={{display:"flex",flexDirection:"row",margin:"5% 0% 10% 0%"}}>
         
         {
  
-            dataKeys.map((item,i)=>{
+        dataKeys.length > 0 ? dataKeys.map((item,i)=>{
 
-                return <div style={{border:" 2px solid red"}} key = {i}>
+            return <DivDataWrapper key = {i}>
         
-                <div> Sensor_id : {data[item].Sensor_ID}     </div>
-                <div> Temperature : {data[item].Temperature}C</div>
-                <div> Humidity : {data[item].Humidity}%      </div>
-                <div> Voltage : {data[item].Voltage}V        </div>
+                    <DivDataContainer> Sensor_id : {data[item].Sensor_ID}     </DivDataContainer>
+                    <DivDataContainer> Temperature : {data[item].Temperature}C</DivDataContainer>
+                    <DivDataContainer> Humidity : {data[item].Humidity}%      </DivDataContainer>
+                    <DivDataContainer> Voltage : {data[item].Voltage}V        </DivDataContainer>
         
-               </div> 
-        })
-        }
+                    </DivDataWrapper> 
+
+            }) : <Choke></Choke>
+
+        } 
+        </div>
 
         </div>
     )
