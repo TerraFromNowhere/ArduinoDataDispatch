@@ -4,10 +4,6 @@ import {Footer} from './containers/footer';
 import {initApp} from './dataHandlers/firebase';
 
 
-
-
-
-
  const componentDidMount = () =>{
     React.useEffect(()=>{
          if(initApp()){
@@ -20,12 +16,8 @@ import {initApp} from './dataHandlers/firebase';
 
 const App = () =>{
 
-     componentDidMount(); 
-     let [data,stateData] = useState([]);
-     let [dataKeys,keys] = useState([]);
-      
-
-   
+    componentDidMount(); 
+         
     return (
 
         <div>
