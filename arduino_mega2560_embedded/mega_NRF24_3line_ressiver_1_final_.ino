@@ -21,8 +21,9 @@ IPAddress ip(192, 168, 0, 3);   // The IP address will be depend on your local n
 iarduino_OLED_txt myOLED(0x3C);  // Объявляем объект myOLED, указывая адрес дисплея на шине I2C: 0x3C или 0x3D.
 extern uint8_t MediumFontRus[];  // Подключаем шрифт MediumFontRus.
 DS3231  rtc(SDA, SCL);           // Init the DS3231 using the hardware interface
-uint8_t    pipe;    // Создаём переменную     для хранения номера трубы, по которой пришли данные
-
+uint8_t    pipe;    // Создаём переменную для хранения номера трубы, по которой пришли данные
+//only unsigned long could be passed into delay function greater than 32000 values
+unsigned long del = 120000;
 
 EthernetServer server(8080);
 
@@ -37,14 +38,14 @@ void setup(){
   myOLED.begin();   
   myOLED.setFont(MediumFontRus); 
   Serial.println("Privet");
-  const int second = 1000; 
+  const int second = 1000*5; 
   delay(2000);
 
   Ethernet.init(10);
   Ethernet.begin(mac);
 
   radioThread.onRun(radioSetup);
-  radioThread.setInterval(second*600); //initiate data sending protocol once per 10 minute
+  radioThread.setInterval(second); //initiate data sending protocol once per unit of time
 
   ethernetThread.onRun(ethernetSetup);
   ethernetThread.setInterval(100);
@@ -126,11 +127,14 @@ void ethernetInitialise(){
 
 float HTTPSerialize(float *data){
   
-
- Serial.println("making POST request");
-
  
- String postData = "Temperature="+String(data[0])+"&Humidity="+String(data[1])+"&Voltage="+String(data[2]/1000)+"&Sensor_ID=1"; 
+ 
+ Serial.println("making POST request with delay");
+ Serial.println(del);
+ Serial.println("ms");
+ 
+ delay(del);
+ String postData = "Temperature="+String(data[0])+"&Humidity="+String(data[1])+"&Voltage="+String(data[2]/1000)+"&Sensor_ID=1"+"&Belonging_to=HOME"; 
 
   client.beginRequest();
   client.post("/");
@@ -199,12 +203,12 @@ void radioSetup(){
       Serial.println(data[2]/1000);
       Serial.println();
       myOLED.clrScr();
-      myOLED.print(F("Temp:"), 1,  1);
-      myOLED.print((data[0]), 65, 1);
-      myOLED.print(F("Hum."), 1,  4);
-      myOLED.print((data[1]), 65, 4);
-      myOLED.print(F("Volt."), 1, 7);
-      myOLED.print((data[2]/1000), 65, 7);
+      myOLED.print(F("Temp:"), 1,   1);
+      myOLED.print((data[0]), 65,     1);
+      myOLED.print(F("Hum."), 1,     4);
+      myOLED.print((data[1]), 65,     4);
+      myOLED.print(F("Volt."), 1,     7);
+      myOLED.print((data[2]/1000), 65,     7);
      
     
       sdcardSerialize(data);
