@@ -48,14 +48,18 @@ application.post('/',(req,res)=>{
     console.log(`Current year's week : ${currentWeekNumber}`);
 
     if(req.body.Sensor_ID === "1"){
-        FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(req.body).getKey();
+
+        let reqBody = req.body;
+        reqBody.timeStamp = moment().format("HH:mm:ss");
+
+        FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
         console.log(req.body);  
     }
  
 });
 
 application.get('/',(req,res)=>{
-    res.send('Get request received');
+    res.send('Nothing goes there');
 });
 
 
