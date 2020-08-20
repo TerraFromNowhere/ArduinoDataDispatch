@@ -104,13 +104,14 @@ export const DivButtonContainer = styled.div`
 
 export const ButtonSensorMode = styled.button`
     border:2px solid #469a39;
-    padding:10px 20px;
+    padding:5px 10px;
     color:#ffffff;
     background-color:#469a39;
     border-radius:5px;
     display:block;
     margin-left:10px;
     font-family:Arial;
+    font-size:10px;
     box-shadow:-2px 3px 5px 0px ;
     margin-left:20px;
     font-weight:bold;
@@ -137,13 +138,14 @@ export const DivDataWrapper = styled.div`
     margin-left:15px;
     background-color:#ffffff;
     opacity:0.7;
+    margin-top:5px;
 `;
 
 export const DivDataContainer = styled.div`
     color:#001a2d;
-    margin:10px 0px 5px 10px;
-    padding:10px 5px 10px 15px;
-    font-size:22px;
+    margin:5px 0px 5px 5px;
+    padding:5px 5px 5px 10px;
+    font-size:12px;
     font-weight:bold;
 `;
 
