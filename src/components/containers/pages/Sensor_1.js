@@ -1,85 +1,139 @@
 import React from 'react';
-import {DivDataWrapper,DivDataContainer,ButtonSensorMode} from '../styledContainers/sComponents';
+import {RotatedImg,DivDataContainer,DivDataContainerHeader,DivDataWrapperSensor} from '../styledContainers/sComponents';
 import {realTimeQueryImitation} from '../../dataHandlers/query';
-import {useState} from 'react'
+import {useState,useEffect} from 'react';
+import {getQueryString} from '../../../const/queryConst';
+import spinner from '../../img/spinner.png';
 
 export const Sensor_1 = () => {
 
     let [data,stateData] = useState([]);
-    let [dataKeys,keys] = useState([]);
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{             
+            realTimeQueryImitation(stateData,setFetching,getQueryString(1,new Date().getHours()));
+            setFetching(false);
+        },5000);
+
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+
+    },[]);
+
 
     return (
 
-        <DivDataWrapper>
+        <div>
 
     {
  
-        dataKeys.length > 0 ? 
+         data.length != 0 ? 
 
 
-        dataKeys.map((item,i)=>{
+        data.map((item,i)=>{
 
-        return <DivDataWrapper key = {i}>
+        return <DivDataWrapperSensor key = {i}>
  
-                 <DivDataContainer> Sensor_id : {data[item].Sensor_ID}     </DivDataContainer>
-                 <DivDataContainer> Temperature : {data[item].Temperature}C</DivDataContainer>
-                 <DivDataContainer> Humidity : {data[item].Humidity}%      </DivDataContainer>
-                 <DivDataContainer> Voltage : {data[item].Voltage}V        </DivDataContainer>
-                 <DivDataContainer> Location : {data[item].Belonging_to}    </DivDataContainer>
-                 <DivDataContainer> Received at : {data[item].timeStamp}    </DivDataContainer>
+                 <DivDataContainerHeader> SENSOR_ID : { data[0].Sensor_ID  }   </DivDataContainerHeader>
+                 <DivDataContainerHeader> LOCATION : {data[0].Belonging_to  }  </DivDataContainerHeader>
+                 <DivDataContainer> Temperature : {data[0].Temperature }C</DivDataContainer>
+                 <DivDataContainer> Humidity : {data[0].Humidity }%      </DivDataContainer>
+                 <DivDataContainer> Voltage : {data[0].Voltage  }V        </DivDataContainer>
+                 <DivDataContainer> Received in : {data[0].timeStamp }    </DivDataContainer>
  
-             </DivDataWrapper> 
+             </DivDataWrapperSensor> 
 
             })
         
         : 
-            <div>Data not fetched yet</div>
+            <RotatedImg src = {spinner} ></RotatedImg>
 
         } 
 
-            <ButtonSensorMode onClick = {
-                ()=>{realTimeQueryImitation(stateData,keys,`DATA/Sensor_1/Year_2020/Month_8/Week_34/Day_4/Hour_9`)
-                }}>
-                    Get RT data
-            </ButtonSensorMode>
+        
 
-        </DivDataWrapper>
+        </div>
         
     );
 }
 
 export const Sensor_2 = () => {
+
+    let [data2,stateData2] = useState([]); 
+    
     return (
 
-        <DivDataWrapper>
+     
+        <div>
 
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-
-            <ButtonSensorMode>Get RT data</ButtonSensorMode>
-
-        </DivDataWrapper>
-        
+        {
+     
+             data2.length > 0 ? 
+    
+    
+            data2.map((item,i)=>{
+    
+            return <DivDataWrapperSensor key = {i}>
+     
+                     <DivDataContainerHeader> SENSOR_ID : { data2[0].Sensor_ID  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> LOCATION : {data2[0].Belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> Temperature : {data2[0].Temperature }C</DivDataContainer>
+                     <DivDataContainer> Humidity : {data2[0].Humidity }%      </DivDataContainer>
+                     <DivDataContainer> Voltage : {data2[0].Voltage  }V        </DivDataContainer>
+                     <DivDataContainer> Received in : {data2[0].timeStamp }    </DivDataContainer>
+     
+                 </DivDataWrapperSensor> 
+    
+                })
+            
+            : 
+                <RotatedImg src = {spinner} ></RotatedImg>
+    
+            }      
+    
+            </div>
     );
 }
 
 export const Sensor_3 = () => {
+
+    let [data3,stateData3] = useState([]);
+
     return (
 
-        <DivDataWrapper>
+        <div>
 
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-            <DivDataContainer></DivDataContainer>
-
-            <ButtonSensorMode>Get RT data</ButtonSensorMode>
-
-        </DivDataWrapper>
+        {
+     
+             data3.length > 0 ? 
+    
+    
+            data3.map((item,i)=>{
+    
+            return <DivDataWrapperSensor key = {i}>
+     
+                     <DivDataContainerHeader> SENSOR_ID : { data3[0].Sensor_ID  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> LOCATION : {data3[0].Belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> Temperature : {data3[0].Temperature }C</DivDataContainer>
+                     <DivDataContainer> Humidity : {data3[0].Humidity }%      </DivDataContainer>
+                     <DivDataContainer> Voltage : {data3[0].Voltage  }V        </DivDataContainer>
+                     <DivDataContainer> Received in : {data3[0].timeStamp }    </DivDataContainer>
+     
+                 </DivDataWrapperSensor> 
+    
+                })
+            
+            : 
+                <RotatedImg src = {spinner} ></RotatedImg>
+    
+            }      
+    
+            </div>
         
     );
 }
