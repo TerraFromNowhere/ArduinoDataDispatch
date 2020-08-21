@@ -4,19 +4,21 @@ import {Footer} from './containers/footer';
 import {initApp} from './dataHandlers/firebase';
 
 
- const componentDidMount = () =>{
-    React.useEffect(()=>{
-         if(initApp()){
-             console.log("App initialized");
-         };
-    },[]);
-}
+
 
 
 
 const App = () =>{
 
-    componentDidMount(); 
+    
+        React.useEffect(()=>{
+             if(initApp()){
+                 console.log("App initialized");
+             }
+        },[]);
+    
+
+     
          
     return (
 
