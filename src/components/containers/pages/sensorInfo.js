@@ -23,7 +23,7 @@ return (
             <ButtonSensorMode>GET REAL TIME DATA  (refresh every n second)</ButtonSensorMode>
             <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/Sensor_1/Year_2020/Month_8/Week_34/Day_4/Hour_9`)}}>GET DATA PER HOUR</ButtonSensorMode>
             <ButtonSensorMode>GET DATA PER DAY</ButtonSensorMode>
-            <ButtonSensorMode>GET DATA PER WEEK</ButtonSensorMode> 
+            
 
         </DivButtonContainer>
 

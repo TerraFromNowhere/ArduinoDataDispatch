@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import {Link} from 'react-router-dom';
 
 
@@ -147,6 +147,39 @@ export const DivDataContainer = styled.div`
     padding:5px 5px 5px 10px;
     font-size:12px;
     font-weight:bold;
+`;
+
+export const DivDataWrapperSensor = styled(DivDataWrapper)`
+    margin-left:15px;
+    margin-bottom:20px;
+    width:220px;
+    flex-basis:inherit;
+`;
+
+export const DivDataContainerHeader = styled(DivDataContainer)`
+    background-color:darkblue;
+    color:white;
+    text-align:center;
+    font-size:16px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-left:0px;
+`;
+
+const animationRotate = keyframes`
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+`;
+
+export const RotatedImg = styled.img`
+    width:24px;
+    height:24px;
+    animation: ${animationRotate} 2s linear infinite;
+    margin:25vh 10px 15vh 15vw;   
 `;
 
 
