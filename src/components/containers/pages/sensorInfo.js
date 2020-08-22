@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import {getDataPerUnitOfTime} from '../../dataHandlers/query';
 import {Choke} from '../choke';
 import {DivButtonContainer,ButtonSensorMode,DivDataContainer,DivDataWrapper} from '../styledContainers/sComponents';
-
+import {getQueryString} from '../../../const/queryConst';
 
 
 
@@ -10,7 +10,7 @@ import {DivButtonContainer,ButtonSensorMode,DivDataContainer,DivDataWrapper} fro
 export const SensorInfo = () => {
 
     let [data,stateData] = useState([]);
-    let [dataKeys,keys] = useState([]);
+    let [fetching,setFetching] = useState(false);
 
   
 return (
@@ -19,31 +19,29 @@ return (
 
         <DivButtonContainer> 
 
-            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/Sensor_1/Year_2020/Month_8/Week_34/Day_4/Hour_9`)}}>GET DATA</ButtonSensorMode>
-            <ButtonSensorMode>GET REAL TIME DATA  (refresh every n second)</ButtonSensorMode>
-            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,keys,`DATA/Sensor_1/Year_2020/Month_8/Week_34/Day_4/Hour_9`)}}>GET DATA PER HOUR</ButtonSensorMode>
-            <ButtonSensorMode>GET DATA PER DAY</ButtonSensorMode>
+            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,setFetching,getQueryString(1,new Date().getHours()))}}>Get data per last hour</ButtonSensorMode>
+            <ButtonSensorMode onClick={()=>{getDataPerUnitOfTime(stateData,setFetching,getQueryString(1))}}>Get data per last day</ButtonSensorMode>
+            <ButtonSensorMode>Switch to real time mode</ButtonSensorMode>
             
-
         </DivButtonContainer>
 
         <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",margin:"5% 0% 10% 0%"}}>
         
         {
  
-        dataKeys.length > 0 ? 
+        data.length > 0 ? 
 
       
-        dataKeys.map((item,i)=>{
+        data.map((item,i)=>{
 
             return <DivDataWrapper key = {i}>
         
-                        <DivDataContainer> Sensor_id : {data[item].Sensor_ID}     </DivDataContainer>
-                        <DivDataContainer> Temperature : {data[item].Temperature}C</DivDataContainer>
-                        <DivDataContainer> Humidity : {data[item].Humidity}%      </DivDataContainer>
-                        <DivDataContainer> Voltage : {data[item].Voltage}V        </DivDataContainer>
-                        <DivDataContainer> Location : {data[item].Belonging_to}    </DivDataContainer>
-                        <DivDataContainer> Received at : {data[item].timeStamp}    </DivDataContainer>
+                        <DivDataContainer> Sensor_id : {item.Sensor_ID}     </DivDataContainer>
+                        <DivDataContainer> Temperature : {item.Temperature}C</DivDataContainer>
+                        <DivDataContainer> Humidity : {item.Humidity}%      </DivDataContainer>
+                        <DivDataContainer> Voltage : {item.Voltage}V        </DivDataContainer>
+                        <DivDataContainer> Location : {item.Belonging_to}    </DivDataContainer>
+                        <DivDataContainer> Received at : {item.timeStamp}    </DivDataContainer>
         
                     </DivDataWrapper> 
     

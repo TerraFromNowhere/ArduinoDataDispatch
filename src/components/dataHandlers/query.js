@@ -1,13 +1,15 @@
 import {getData} from './firebase.js'
 
 
-export const getDataPerUnitOfTime = (stateData,keys,queryString) =>{
-
-   return getData().ref(queryString).once('value').then(items =>{
-        stateData(items.val());
-        keys(Object.keys(items.val()));
+export const getDataPerUnitOfTime = (stateData,setFetching,queryString) =>{
+    setFetching(true);
+    console.log(queryString);
+   return getData().ref().child(queryString).once('value').then(items =>{
+        stateData(Object.values(items.val()));
+        setFetching(false);
    }).catch(e =>{
-       throw new Error(`Error ${e}`);
+        setFetching(false);
+       throw new Error(`Error ${e}`);      
    });
 
 }
