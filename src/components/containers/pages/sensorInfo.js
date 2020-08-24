@@ -1,13 +1,17 @@
 import React , {useState} from 'react';
 import {getDataPerDay,getDataPerHour} from '../../dataHandlers/query';
 import {Choke} from '../choke';
-import {DivButtonContainer,ButtonSensorMode,DivDataContainer,DivDataWrapper} from '../styledContainers/sComponents';
+import {DivButtonContainer,ButtonSensorMode,DivDataContainerDetailed,DivDataWrapper,DivDataContainerHeader} from '../styledContainers/sComponents';
 import {getQueryString} from '../../../const/queryConst';
+import {useHistory} from 'react-router-dom';
+import {LineChart,Line,CartesianGrid,XAxis,YAxis} from 'recharts';
 
 
 
 
 export const SensorInfo = () => {
+
+    const LocalHistory = useHistory();
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
@@ -21,11 +25,18 @@ return (
 
             <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(1,new Date().getHours()))}}>Get data per last hour</ButtonSensorMode>
             <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(1))}}>Get data per last day</ButtonSensorMode>
-            <ButtonSensorMode>Switch to real time mode</ButtonSensorMode>
+            <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>Switch to real time mode</ButtonSensorMode>
             
         </DivButtonContainer>
 
         <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",margin:"5% 0% 10% 0%"}}>
+
+        <LineChart width={900} height = {400} data = {data}>
+            <Line type = "monotone" dataKey = "Temperature" stroke="black"/>
+                <CartesianGrid color = "lighgray" stroke = "orange"/>
+                <XAxis dataKey="timeStamp"/>
+                <YAxis dataKey = "Temperature"/>           
+        </LineChart>   
         
         {
  
@@ -38,14 +49,14 @@ return (
 
             return <DivDataWrapper key = {i}>
         
-                <DivDataContainer> Sensor_id : {item.Sensor_ID}     </DivDataContainer>
-                <DivDataContainer> Temperature : {item.Temperature}C</DivDataContainer>
-                <DivDataContainer> Humidity : {item.Humidity}%      </DivDataContainer>
-                <DivDataContainer> Voltage : {item.Voltage}V        </DivDataContainer>
-                <DivDataContainer> Location : {item.Belonging_to}    </DivDataContainer>
-                <DivDataContainer> Received at : {item.timeStamp}    </DivDataContainer>
+                <DivDataContainerHeader> Sensor_id : {item.Sensor_ID}     </DivDataContainerHeader>
+                <DivDataContainerHeader> Location : {item.Belonging_to}</DivDataContainerHeader>
+                <DivDataContainerDetailed> Humidity : {item.Humidity}%      </DivDataContainerDetailed>
+                <DivDataContainerDetailed> Voltage : {item.Voltage}V        </DivDataContainerDetailed>
+                <DivDataContainerDetailed> Temperature : {item.Temperature}C     </DivDataContainerDetailed>
+                <DivDataContainerDetailed> Received at : {item.timeStamp}    </DivDataContainerDetailed>
 
-            </DivDataWrapper> 
+                </DivDataWrapper> 
 
         
             
@@ -56,7 +67,8 @@ return (
          : 
             <Choke></Choke>
 
-        } 
+        }
+
 
         </div>
 

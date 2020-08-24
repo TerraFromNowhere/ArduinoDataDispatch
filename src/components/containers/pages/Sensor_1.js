@@ -28,7 +28,7 @@ export const Sensor_1 = () => {
 
     return (
 
-        <div>
+        <div style={{display:'flex',justifyContent:'center'}}>
 
     {
  
