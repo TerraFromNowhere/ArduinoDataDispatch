@@ -1,7 +1,6 @@
 import styled, {keyframes} from 'styled-components';
 import {Link} from 'react-router-dom';
 
-
 export const DivRowFlex = styled.div`
     display:flex;
     flex-direction:row;
@@ -59,12 +58,6 @@ export const LinkFooter = styled.a`
     };
 `;
 
-export const StyledChoke = styled.div`
-    margin:12% 0px 0% 0px;
-    width:100%;
-    height:20vh;
-
-`;
 
 export const FooterStyled = styled.footer`
     opacity:0.6;
@@ -144,9 +137,13 @@ export const DivDataWrapper = styled.div`
 export const DivDataContainer = styled.div`
     color:#001a2d;
     margin:5px 0px 5px 5px;
-    padding:5px 5px 5px 10px;
-    font-size:12px;
+    padding:15px 5px 5px 10px;
+    font-size:16px;
     font-weight:bold;
+`;
+
+export const DivDataContainerDetailed = styled(DivDataContainer)`
+    padding-top:5px;
 `;
 
 export const DivDataWrapperSensor = styled(DivDataWrapper)`
@@ -180,6 +177,15 @@ export const RotatedImg = styled.img`
     height:24px;
     animation: ${animationRotate} 2s linear infinite;
     margin:25vh 10px 15vh 15vw;   
+`;
+
+
+export const StyledChoke = styled.img`
+    margin:4% 0px 0% 45%;
+    width:20vh;
+    height:20vh;
+    animation: ${animationRotate} 3s linear infinite;
+    backgroung-opacity:0;
 `;
 
 
