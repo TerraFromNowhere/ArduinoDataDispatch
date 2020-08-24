@@ -1,17 +1,50 @@
 import {getData} from './firebase.js'
 
 
-export const getDataPerUnitOfTime = (stateData,setFetching,queryString) =>{
+export const getDataPerDay = (stateData,setFetching,queryString) =>{
+   
     setFetching(true);
-    console.log(queryString);
+   
    return getData().ref().child(queryString).once('value').then(items =>{
-        stateData(Object.values(items.val()));
+
+        let tt = Object.values(items.val());
+        let arr = [];
+
+        tt.forEach((item)=>{
+            for( let i in item){
+                arr.push(item[i]);
+            }
+        })
+
+        arr.sort((a,b)=>{
+
+            if(a.timeStamp > b.timeStamp){
+                return 1;
+            }
+            if(a.timeStamp < b.timeStamp){
+                return -1;
+            }
+
+            return 0;
+        })
+
+        stateData(arr);   
         setFetching(false);
+
    }).catch(e =>{
         setFetching(false);
        throw new Error(`Error ${e}`);      
    });
 
+}
+
+export const getDataPerHour = (stateData,setFetching,queryString) => {      
+        return getData().ref(queryString).once('value').then(items =>{
+            stateData(Object.values(items.val()));
+            console.log("Data fetched from sensor_1");
+       }).catch(e =>{
+           throw new Error(`Error ${e}`);
+       });       
 }
 
 export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
