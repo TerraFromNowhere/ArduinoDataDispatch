@@ -14,7 +14,8 @@ export const getQueryString = (id,hour) => {
     }
 
     return  `DATA/Sensor_${id}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${hour}`;
-    
-     
+         
 }
+
+
 
