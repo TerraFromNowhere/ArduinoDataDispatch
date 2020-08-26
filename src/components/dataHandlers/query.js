@@ -33,6 +33,15 @@ export const getDataPerDay = (stateData,setFetching,queryString) =>{
 
    }).catch(e =>{
         setFetching(false);
+        stateData({
+            Sensor_ID:"No data fetched per last hour",
+            Belonging_to:"",
+            Humidity:"",
+            Voltage:"",
+            Temperature:"",
+            timeStamp:""
+
+        });
        throw new Error(`Error ${e}`);      
    });
 
