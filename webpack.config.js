@@ -1,7 +1,7 @@
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const momentLocaleKeeper = require('moment-locales-webpack-plugin');
+
 
 module.exports = {
 
@@ -25,7 +25,7 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.(png|ico|jpe?g|gif)$/i,
                 use: [
                   {
                     loader: 'file-loader',
@@ -44,10 +44,10 @@ module.exports = {
             <html>
 
             <head>
-            <link rel = "favicon" type = "image/x-icon" href = "favicon.ico">
+            <link rel = "favicon" type = "image/x-icon" href = "/favicon.ico">
               <title>ArduinoDataDispatcher</title>
                 <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"></head>
-            <body style= "margin:0px;padding:0px;background-image:url('../src/components/img/furgon.jpg');background-position:center;background-attachment: fixed;">
+            <body style= "margin:0px;padding:0px;">
                 <div id="root"></div>
                 <script type="text/javascript" src="app.bundle.js"></script>
             </body>
