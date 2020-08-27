@@ -4,7 +4,8 @@ import {DivButtonContainer,ButtonSensorMode,DivDataContainerDetailed,DivDataWrap
 import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
-import {Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine,ResponsiveContainer} from 'recharts';
+import {ResponsiveContainer,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
+
 
 
 
@@ -37,23 +38,23 @@ return (
         {
             data.length > 0 ? 
 
-            <ResponsiveContainer width="80%" height={500}>
+            <ResponsiveContainer width="90%" height={500}>
 
-            <AreaChart  data = {data} >
-                <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
-                <XAxis stroke="gold" dataKey="timeStamp"/>
-                <YAxis stroke="gold" />
-                <Tooltip/>
-                <defs>
-                    <linearGradient id="split" x1= "0" y1 = "0" x2 = "0" y2 = "1" >
-                        <stop stopOpacity={1} stopColor="green" offset = {off}></stop>
-                        <stop stopOpacity={1} stopColor="red" offset = {off}></stop>
-                    </linearGradient>
-                </defs>
-                <ReferenceLine y={45} label="Critical"  stroke="red" strokeWidth = "5%"/>
-                <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />
-                <Area type="monotone" dataKey="Humidity" stroke="black" fill="darkblue" />           
-            </AreaChart> 
+                <AreaChart  data = {data} >
+                    <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
+                    <XAxis stroke="gold" dataKey="timeStamp"/>
+                    <YAxis stroke="gold" />
+                    <Tooltip/>
+                    <defs>
+                        <linearGradient id="split" x1= "0" y1 = "0" x2 = "0" y2 = "1" >
+                            <stop stopOpacity={1} stopColor="green" offset = {off}></stop>
+                            <stop stopOpacity={1} stopColor="red" offset = {off}></stop>
+                        </linearGradient>
+                    </defs>
+                    <ReferenceLine y={45} label="Critical"  stroke="red" strokeWidth = "5%"/>
+                    <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />
+                    <Area type="monotone" dataKey="Humidity" stroke="darkblue" fill="darkblue" />           
+                </AreaChart> 
 
             </ResponsiveContainer>
             :

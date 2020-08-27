@@ -59,8 +59,13 @@ export const getDataPerHour = (stateData,setFetching,queryString) => {
 export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
     console.log("Start to fetching data...");         
         return getData().ref(queryString).limitToLast(1).once('value').then(items =>{
+           if(items.val() != null){
             stateData(Object.values(items.val()));
             console.log("Data fetched from sensor_1");
+           }
+           else {
+               console.log("Nothing to fetch, sensor send null");
+           }
        }).catch(e =>{
            throw new Error(`Error ${e}`);
        });       

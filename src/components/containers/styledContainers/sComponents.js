@@ -9,7 +9,7 @@ export const DivRowFlex = styled.div`
 
 export const DivRowFlexHeader = styled(DivRowFlex)`
     justify-content:flex-start;
-    margin:30px 0px 0px 40px;
+    padding:30px 0px 0px 40px;
 `;
 
 export const DivRowFlexFooter =styled.div`

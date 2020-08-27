@@ -4,11 +4,14 @@ import {realTimeQueryImitation} from '../../dataHandlers/query';
 import {useState,useEffect} from 'react';
 import {getQueryString} from '../../../const/queryConst';
 import spinner from '../../img/spinner.png';
+import {dataMaxMinFinder} from '../../../const/maxMinFinder'
 
 export const Sensor_1 = () => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
+
+    const off = dataMaxMinFinder(data) || null;
 
     useEffect(()=>{
 
@@ -37,7 +40,9 @@ export const Sensor_1 = () => {
 
         data.map((item,i)=>{
 
-        return <DivDataWrapperSensor key = {i}>
+        return ( 
+           
+                <DivDataWrapperSensor key = {i}>
  
                  <DivDataContainerHeader> SENSOR_ID : { data[0].Sensor_ID  }   </DivDataContainerHeader>
                  <DivDataContainerHeader> LOCATION : {data[0].Belonging_to  }  </DivDataContainerHeader>
@@ -46,7 +51,10 @@ export const Sensor_1 = () => {
                  <DivDataContainer> Voltage : {data[0].Voltage  }V        </DivDataContainer>
                  <DivDataContainer> Received in : {data[0].timeStamp }    </DivDataContainer>
  
-             </DivDataWrapperSensor> 
+                </DivDataWrapperSensor>
+
+
+           ); 
 
             })
         
