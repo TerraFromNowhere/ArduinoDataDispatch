@@ -6,6 +6,8 @@ const port = 80;
 const __SERVER_IP = "192.168.0.95";
 const parser = require('body-parser');
 const moment = require('moment');
+const path = require('path');
+const expressip = require('express-ip');
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
@@ -13,10 +15,14 @@ let currentHour = new Date().getHours();
 let currentDay = new Date().getDay();
 let currentWeekNumber = moment().week();
 
-
 //db init, return REF
 const F = require('./db/db.js');
 const FBD = F();
+
+
+application.use(expressip().getIpInfoMiddleware);
+
+application.use(express.static(__dirname+'/build'));
 
 application.use(CORS());
 
@@ -59,7 +65,8 @@ application.post('/',(req,res)=>{
 });
 
 application.get('/',(req,res)=>{
-    res.send('Nothing goes there');
+    console.log(req.ipInfo);
+    res.sendFile(path.resolve(__dirname+'/build/index.html'));
 });
 
 
