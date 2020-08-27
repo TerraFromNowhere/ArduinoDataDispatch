@@ -1,6 +1,5 @@
 import React , {useState} from 'react';
 import {getDataPerDay,getDataPerHour} from '../../dataHandlers/query';
-import {Choke} from '../choke';
 import {DivButtonContainer,ButtonSensorMode,DivDataContainerDetailed,DivDataWrapper,DivDataContainerHeader} from '../styledContainers/sComponents';
 import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
@@ -33,8 +32,7 @@ return (
 
         <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",margin:"5% 0% 10% 0%"}}>
 
-  
-        
+       
         
         {
             data.length > 0 ? 
@@ -61,35 +59,6 @@ return (
             :
             <span></span>
         }
-        {
- 
-        data.length > 0 ?
-        
-                     
-        data.map((item,i)=>{
-
-
-
-            return <DivDataWrapper key = {i}>
-        
-                <DivDataContainerHeader> Sensor_id : {item.Sensor_ID}     </DivDataContainerHeader>
-                <DivDataContainerHeader> Location : {item.Belonging_to}</DivDataContainerHeader>
-                <DivDataContainerDetailed> Humidity : {item.Humidity}%      </DivDataContainerDetailed>
-                <DivDataContainerDetailed> Voltage : {item.Voltage}V        </DivDataContainerDetailed>
-                <DivDataContainerDetailed> Temperature : {item.Temperature}C     </DivDataContainerDetailed>
-                <DivDataContainerDetailed> Received at : {item.timeStamp}    </DivDataContainerDetailed>
-
-                </DivDataWrapper> 
-          
-            })
-
-        
-          
-         : 
-            <Choke></Choke>
-
-        }
-
 
         </div>
 
