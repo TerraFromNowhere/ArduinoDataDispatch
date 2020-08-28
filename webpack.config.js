@@ -76,6 +76,7 @@ module.exports = {
               {source:'build/logoWernox.png',destination:'build/img/logoWernox.png'},
               {source:'build/spinner.png',destination:'build/img/spinner.png'},
               {source:'build/favicon.ico',destination:'build/img/favicon.ico'},
+              {source:'build/Bigspinner.png',destination:'build/img/Bigspinner.png'},
               {source:'build/app.bundle.js',destination:'build/bundle/app.bundle.js'}
             ]
           }          

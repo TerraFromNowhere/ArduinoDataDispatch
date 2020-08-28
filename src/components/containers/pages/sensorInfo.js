@@ -4,6 +4,7 @@ import {DivButtonContainer,ButtonSensorMode,DivDataContainerDetailed,DivDataWrap
 import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
+import {Choke} from '../choke';
 import {ResponsiveContainer,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
 
 
@@ -58,7 +59,7 @@ return (
 
             </ResponsiveContainer>
             :
-            <span></span>
+            <Choke></Choke>
         }
 
         </div>
