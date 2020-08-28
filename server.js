@@ -7,7 +7,8 @@ const __SERVER_IP = "192.168.0.95";
 const parser = require('body-parser');
 const moment = require('moment');
 const path = require('path');
-const expressip = require('express-ip');
+const expressLogging  = require('express-logging');
+const logger = require('logops');
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
@@ -19,8 +20,9 @@ let currentWeekNumber = moment().week();
 const F = require('./db/db.js');
 const FBD = F();
 
+const blackList = ['/img','/bundle'];
 
-application.use(expressip().getIpInfoMiddleware);
+application.use(expressLogging(logger,{blacklist:blackList}));
 
 application.use(express.static(__dirname+'/build'));
 
@@ -31,6 +33,12 @@ application.options('*',CORS());
 application.use(parser.urlencoded({ extended: true }));
 
 application.use(parser.json());
+
+
+application.get('/',(req,res)=>{
+    res.sendFile(path.resolve(__dirname+'/build/index.html'));
+});
+
 
 application.post('/',(req,res)=>{
 
@@ -64,14 +72,9 @@ application.post('/',(req,res)=>{
  
 });
 
-application.get('/',(req,res)=>{
-    console.log(req.ipInfo);
-    res.sendFile(path.resolve(__dirname+'/build/index.html'));
-});
-
 
 const httpServer = http.createServer(application);
 httpServer.listen(port,__SERVER_IP);
 
-console.log('Server running at 192.168.0.95:80/');
+console.log('Server running at 192.168.0.95:80');
 
