@@ -59,7 +59,7 @@ export const Sensor_1 = () => {
             })
         
         : 
-            <RotatedImg src = {spinner} ></RotatedImg>
+            <RotatedImg src = {`img/${spinner}`} ></RotatedImg>
 
         } 
 
@@ -100,7 +100,7 @@ export const Sensor_2 = () => {
                 })
             
             : 
-                <RotatedImg src = {spinner} ></RotatedImg>
+                <RotatedImg src = {`img/${spinner}`} ></RotatedImg>
     
             }      
     
@@ -137,7 +137,7 @@ export const Sensor_3 = () => {
                 })
             
             : 
-                <RotatedImg src = {spinner} ></RotatedImg>
+                <RotatedImg src = {`img/${spinner}`} ></RotatedImg>
     
             }      
     

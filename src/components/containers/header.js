@@ -13,7 +13,7 @@ export const Header = () => {
             <div>
 
             <DivRowFlexHeader>
-                <a href={'http://wernox.ru/'}><img src={logo} alt="Company logo"></img></a>
+                <a href={'http://wernox.ru/'}><img src={`img/${logo}`} alt="Company logo"></img></a>
             </DivRowFlexHeader>
 
                 <nav>
