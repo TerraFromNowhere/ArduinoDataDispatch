@@ -6,7 +6,7 @@ import BigSpinner from '../img/Bigspinner.png';
 
 export const Choke = () => {
     return (
-        <StyledChoke src = {`img/${BigSpinner}`}>
+        <StyledChoke src = {`${BigSpinner}`}>
            
         </StyledChoke>
     );

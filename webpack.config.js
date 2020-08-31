@@ -9,6 +9,10 @@ module.exports = {
     entry:{
         app:path.resolve(__dirname+"/src/index.js")
     },
+    output:{
+      filename:'[name].bundle.js',
+      path:path.resolve(__dirname,'build')
+  },
     devServer:{
       contentBase: path.join(__dirname+'build'),
       compress:true,
@@ -46,27 +50,9 @@ module.exports = {
         new HtmlWebpackPlugin(
             {
 
-            inject: false,
+            template:'index.html',
             favicon: path.resolve(__dirname+'/src/components/img/favicon.ico'),
-           
-            templateContent: () => `
 
-            <html>
-
-              <head>
-  
-              <link rel = "favicon" type = "image/x-icon" href = "/img/favicon.ico">
-                <title>ArduinoDataDispatcher</title>
-                  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-                  <base href="/" />
-                </head>
-              <body style= "margin:0px;padding:0px;">
-                  <div id="root"></div>
-                  <script type="text/javascript" src="/bundle/app.bundle.js"></script>
-              </body>
-            
-            </html>
-            `
           } 
           ),
         new momentLocaleKeeper({
@@ -77,7 +63,6 @@ module.exports = {
           onEnd:{
             mkdir:[
               'build/img',
-              'build/bundle'
             ],
             move:[
               {source:'build/furgon.jpg',destination:'build/img/furgon.jpg'},
@@ -85,16 +70,10 @@ module.exports = {
               {source:'build/spinner.png',destination:'build/img/spinner.png'},
               {source:'build/favicon.ico',destination:'build/img/favicon.ico'},
               {source:'build/Bigspinner.png',destination:'build/img/Bigspinner.png'},
-              {source:'build/app.bundle.js',destination:'build/bundle/app.bundle.js'}
             ]
           }          
         })
     ],
-
-    output:{
-        filename:'[name].bundle.js',
-        path:path.resolve(__dirname,'build')
-    }
 
 }
 
