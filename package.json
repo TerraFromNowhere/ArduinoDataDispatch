@@ -47,7 +47,7 @@
   "scripts": {
     "test": "test",
     "server": "node server.js",
-    "build": "webpack",
+    "build": "webpack -rm -rf /build",
     "dev": "webpack-dev-server --hot --inline"
   },
   "author": "Dmitry Ok.",

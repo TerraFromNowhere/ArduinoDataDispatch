@@ -8,6 +8,7 @@ export const DataForm = () => {
             <label htmlFor = "inp">
                 <button type = "submit">Send</button>
             </label>  
+
         </form>
     );
 }
