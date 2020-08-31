@@ -6,11 +6,15 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 module.exports = {
 
     mode:'development',
-
     entry:{
         app:path.resolve(__dirname+"/src/index.js")
     },
-
+    devServer:{
+      contentBase: path.join(__dirname+'build'),
+      compress:true,
+      port:9000,
+      historyApiFallback:true,
+    },
     module:{
         rules:[
             {
@@ -41,6 +45,7 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin(
             {
+
             inject: false,
             favicon: path.resolve(__dirname+'/src/components/img/favicon.ico'),
            
@@ -49,12 +54,15 @@ module.exports = {
             <html>
 
               <head>
+  
               <link rel = "favicon" type = "image/x-icon" href = "/img/favicon.ico">
                 <title>ArduinoDataDispatcher</title>
-                  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"></head>
+                  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+                  <base href="/" />
+                </head>
               <body style= "margin:0px;padding:0px;">
                   <div id="root"></div>
-                  <script type="text/javascript" src="bundle/app.bundle.js"></script>
+                  <script type="text/javascript" src="/bundle/app.bundle.js"></script>
               </body>
             
             </html>

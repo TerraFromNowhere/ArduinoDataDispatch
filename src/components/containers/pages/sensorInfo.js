@@ -6,7 +6,7 @@ import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
 import {ResponsiveContainer,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
-
+import {DataForm} from '../dataForm';
 
 
 
@@ -31,6 +31,8 @@ return (
             <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>Switch to real time mode</ButtonSensorMode>
             
         </DivButtonContainer>
+        
+        <DataForm></DataForm>
 
         <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",margin:"5% 0% 10% 0%"}}>
 

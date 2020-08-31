@@ -61,15 +61,26 @@ application.post('/',(req,res)=>{
     console.log(`Data received from sensor : ${req.body.Sensor_ID}`);
     console.log(`Current year's week : ${currentWeekNumber}`);
 
+    let reqBody = req.body;
+    reqBody.timeStamp = moment().format("HH:mm:ss");
+    reqBody.Sensor_ID = Math.round(req.body.Sensor_ID) + "";
+    reqBody.Voltage = Math.round(req.body.Voltage)+ "";
+    reqBody.Humidity = Math.round(req.body.Humidity)+"";
+    reqBody.Temperature = Math.round(req.body.Temperature)+"";
+
     if(req.body.Sensor_ID === "1"){
-
-        let reqBody = req.body;
-        reqBody.timeStamp = moment().format("HH:mm:ss");
-
-        FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
-        console.log(req.body);  
+        reqBody.Belonging_to = "PR.HEAD";
     }
- 
+    if(req.body.Sensor_ID === "2"){
+        reqBody.Belonging_to = "K.T.O";
+    }
+    if(req.body.Sensor_ID === "3"){
+        reqBody.Belonging_to = "UNKNOWN";
+    }
+
+    FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
+    console.log(reqBody);  
+    
 });
 
 
