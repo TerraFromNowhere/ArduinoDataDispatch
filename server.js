@@ -69,13 +69,14 @@ application.post('/',(req,res)=>{
     reqBody.Temperature = Math.round(req.body.Temperature)+"";
 
     if(req.body.Sensor_ID === "1"){
-        reqBody.Belonging_to = "PR.HEAD";
+        reqBody.Belonging_to = "UNKNOWN";
     }
     if(req.body.Sensor_ID === "2"){
         reqBody.Belonging_to = "K.T.O";
     }
     if(req.body.Sensor_ID === "3"){
-        reqBody.Belonging_to = "UNKNOWN";
+        reqBody.Belonging_to = "PR.HEAD";
+        reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
 
     FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
