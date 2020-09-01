@@ -1,20 +1,19 @@
 import React , {useState} from 'react';
 import {getDataPerDay,getDataPerHour} from '../../dataHandlers/query';
-import {DivButtonContainer,ButtonSensorMode,DivDataContainerDetailed,DivDataWrapper,DivDataContainerHeader} from '../styledContainers/sComponents';
+import {SpanChartHeader,SpanTextFooter,SpanHeaders,StyledForm,DivButtonContainer,ButtonSensorMode,StyledInput} from '../styledContainers/sComponents';
 import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
 import {ResponsiveContainer,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
-import {DataForm} from '../dataForm';
-
-
+import {submitValidator} from '../../dataHandlers/submitValidator';
 
 
 export const SensorInfo = () => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
+    let [seNumber,setSeNumber] = useState([]);
 
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
@@ -23,20 +22,34 @@ export const SensorInfo = () => {
 return (
 
         <div>
-
-        <DivButtonContainer> 
-
-            <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(1,new Date().getHours()))}}>Get data per last hour</ButtonSensorMode>
-            <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(1))}}>Get data per last day</ButtonSensorMode>
-            <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>Switch to real time mode</ButtonSensorMode>
-            
-        </DivButtonContainer>
         
-        <DataForm></DataForm>
+            <StyledForm>       
+                <StyledInput onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text"></StyledInput>
+            </StyledForm>
+
+        
+
+                <DivButtonContainer> 
+
+                    <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(seNumber||1,new Date().getHours()))}}>Get data per last hour</ButtonSensorMode>
+                    <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(seNumber||1))}}>Get data per last day</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>Switch to real time mode</ButtonSensorMode>
+
+                </DivButtonContainer>
+
+        
 
         <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap",margin:"5% 0% 10% 0%"}}>
 
-       
+       {
+           data.length > 0 ? 
+           <div style={{marginBottom:"20px",marginLeft:"20px"}}>
+            <SpanHeaders><SpanChartHeader>ID : {data[0].Sensor_ID}</SpanChartHeader></SpanHeaders>
+            <SpanHeaders><SpanChartHeader>Location : {data[0].Belonging_to}</SpanChartHeader></SpanHeaders>
+           </div>
+           :
+           null
+       }
         
         {
             data.length > 0 ? 
@@ -60,6 +73,8 @@ return (
                 </AreaChart> 
 
             </ResponsiveContainer>
+
+   
             :
             <Choke></Choke>
         }

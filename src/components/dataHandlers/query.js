@@ -33,16 +33,15 @@ export const getDataPerDay = (stateData,setFetching,queryString) =>{
 
    }).catch(e =>{
         setFetching(false);
-        stateData({
+        stateData([{
             Sensor_ID:"No data fetched per last hour",
-            Belonging_to:"",
-            Humidity:"",
-            Voltage:"",
-            Temperature:"",
-            timeStamp:""
+            Belonging_to:"N/A",
+            Humidity:"0",
+            Voltage:"0",
+            Temperature:"0",
+            timeStamp:"00:00:00"
 
-        });
-       throw new Error(`Error ${e}`);      
+        }]);      
    });
 
 }
@@ -52,7 +51,7 @@ export const getDataPerHour = (stateData,setFetching,queryString) => {
             stateData(Object.values(items.val()));
             console.log("Data fetched from sensor_1");
        }).catch(e =>{
-           throw new Error(`Error ${e}`);
+           console.log("Nothing to fetch, data is null");
        });       
 }
 
