@@ -46,6 +46,12 @@ export const SpanTextFooter = styled(SpanText)`
     font-weight:bold;
 `;
 
+export const SpanChartHeader = styled(SpanTextFooter)`
+    margin:10px 0px 10px 10px;
+    font-size:20px;
+    color:#fff;
+`;
+
 export const LinkFooter = styled.a`
     font-size:12px;
     font-family:Sans-serif,Arial;
@@ -186,6 +192,24 @@ export const StyledChoke = styled.img`
     height:20vh;
     animation: ${animationRotate} 3s linear infinite;
     backgroung-opacity:0;
+`;
+
+export const StyledInput = styled.input`
+    border:3px solid orange;
+    border-radius:5px;
+    background-color:lightgray;
+    width:110px;
+    height:20px;
+    
+
+    :hover{
+        background-color:#ffffff;
+        border:3px solid red;
+    }
+`;
+
+export const StyledForm = styled.form`
+    margin: 5% 0px 5% 10%;
 `;
 
 
