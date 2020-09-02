@@ -10,3 +10,9 @@ export const submitValidator = (eve,callback) => {
 
     callback(eve.target.value);
 }
+
+export const keyNullifier = (eve) => {
+    if(eve.key === "Enter"){
+        eve.preventDefault();
+    }
+}

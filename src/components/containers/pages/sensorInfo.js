@@ -6,7 +6,7 @@ import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
 import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
-import {submitValidator} from '../../dataHandlers/submitValidator';
+import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
 
 
 export const SensorInfo = () => {
@@ -24,7 +24,7 @@ return (
         <div>
         
             <StyledForm>       
-                <StyledInput onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text"></StyledInput>
+                <StyledInput onKeyPress = {(eve)=>{keyNullifier(eve)}} onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text"></StyledInput>
             </StyledForm>
 
         
