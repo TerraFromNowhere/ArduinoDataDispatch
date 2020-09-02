@@ -23,7 +23,7 @@ extern uint8_t MediumFontRus[];  // Подключаем шрифт MediumFontRu
 DS3231  rtc(SDA, SCL);           // Init the DS3231 using the hardware interface
 //uint8_t    pipe;    // Создаём переменную для хранения номера трубы, по которой пришли данные
 //only unsigned long could be passed into delay function greater than 32000 values
-unsigned long del = 60000;
+unsigned long del = 30000;
 
 uint8_t  pipe = 0;
 uint64_t  pipe01 = 0xAABBCCDD22LL ;
@@ -199,15 +199,24 @@ void radioSetup(){
   
      float data[4];
      
-  if (radio.available(&pipe)){ // проверяем не пришло ли чего в буфер.
+     int prevData = 0;
+     
+  if (radio.available(&pipe)){ 
 
       Serial.println("Some data avail.");
 
-     
-
+    
   if(pipe==1)  {
 
-        radio.read(&data, sizeof(data)); // читаем данные и указываем сколько байт читать 
+        if(prevData != 1){
+          
+          prevData = 1;
+          radio.read(&data, sizeof(data)); 
+          
+        } 
+
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
     
          data[3] = 1;
   
@@ -226,17 +235,25 @@ void radioSetup(){
         myOLED.print(F("Volt."), 1,     7);
         myOLED.print((data[2]/1000), 65,     7);
        
-        Serial.print(pipe);
-        
+        Serial.print(pipe);      
         sdcardSerialize(data);
+        
         HTTPSerialize(data);
 
   }  
     
   if(pipe==2)  {
 
-      radio.read(&data, sizeof(data)); // читаем данные и указываем сколько байт читать 
+      if(prevData != 2){
+        
+         prevData = 2;
+         radio.read(&data, sizeof(data));
+          
+       }
 
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
+     
       data[3] = 2;
     
       Serial.print("Temp :");
@@ -262,7 +279,15 @@ void radioSetup(){
   }
   if(pipe==3)  {
 
-        radio.read(&data, sizeof(data)); // читаем данные и указываем сколько байт читать 
+        if(prevData != 3){
+          
+          prevData = 3;
+          radio.read(&data, sizeof(data)); 
+          
+        }
+
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
 
         data[3] = 3;
         
