@@ -57,18 +57,22 @@ export const getDataPerHour = (stateData,setFetching,queryString) => {
 }
 
 export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
-    console.log("Start to fetching data...");         
+    console.log("Start to fetching data...");
+    
+        let prevIndication = {};
+
         return getData().ref(queryString).limitToLast(1).once('value').then(items =>{
            if(items.val() != null){
-            stateData(Object.values(items.val()));
-            console.log("Data fetched succesfully");
+                prevIndication = Object.values(items.val());
+                stateData(prevIndication);
+                console.log("Data fetched succesfully");
            }
            else {
-                return stateData([mockedData]);
+                return prevIndication.length > 0 ? stateData([prevIndication]) : stateData([mockedData]);
            }
        }).catch(e =>{
-           console.log("Data fetching failed");
-           return stateData([mockedData]);
+                console.log("Data fetching failed");
+                return stateData([mockedData]);
        });       
 }
 
