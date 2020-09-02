@@ -4,14 +4,12 @@ import {realTimeQueryImitation} from '../../dataHandlers/query';
 import {useState,useEffect} from 'react';
 import {getQueryString} from '../../../const/queryConst';
 import spinner from '../../img/spinner.png';
-import {dataMaxMinFinder} from '../../../const/maxMinFinder'
+
 
 export const Sensor_1 = () => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
-
-    const off = dataMaxMinFinder(data) || null;
 
     useEffect(()=>{
 
@@ -20,14 +18,13 @@ export const Sensor_1 = () => {
             realTimeQueryImitation(stateData,setFetching,getQueryString(1,new Date().getHours()));
             setFetching(false);
         },5000);
-
+    
         return ()=> {
             clearInterval(interval);
         }
         
-
+    
     },[]);
-
 
     return (
 
@@ -35,7 +32,7 @@ export const Sensor_1 = () => {
 
     {
  
-         data.length != 0 ? 
+    data.length != 0 ? 
 
 
         data.map((item,i)=>{
@@ -73,7 +70,23 @@ export const Sensor_1 = () => {
 export const Sensor_2 = () => {
 
     let [data2,stateData2] = useState([]); 
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{                    
+            realTimeQueryImitation(stateData2,setFetching,getQueryString(2,new Date().getHours()));
+            setFetching(false);
+        },5000);
     
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+    
+    },[]);
+
     return (
 
      
@@ -81,7 +94,7 @@ export const Sensor_2 = () => {
 
         {
      
-             data2.length > 0 ? 
+        data2.length > 0 ? 
     
     
             data2.map((item,i)=>{
@@ -111,6 +124,22 @@ export const Sensor_2 = () => {
 export const Sensor_3 = () => {
 
     let [data3,stateData3] = useState([]);
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{             
+            realTimeQueryImitation(stateData3,setFetching,getQueryString(3,new Date().getHours()));
+            setFetching(false);
+        },5000);
+    
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+    
+    },[]);
 
     return (
 

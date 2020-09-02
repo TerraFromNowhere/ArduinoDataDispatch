@@ -1,11 +1,11 @@
 import React , {useState} from 'react';
 import {getDataPerDay,getDataPerHour} from '../../dataHandlers/query';
-import {SpanChartHeader,SpanTextFooter,SpanHeaders,StyledForm,DivButtonContainer,ButtonSensorMode,StyledInput} from '../styledContainers/sComponents';
+import {SpanChartHeader,SpanHeaders,StyledForm,DivButtonContainer,ButtonSensorMode,StyledInput} from '../styledContainers/sComponents';
 import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
-import {ResponsiveContainer,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
+import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
 import {submitValidator} from '../../dataHandlers/submitValidator';
 
 
@@ -50,15 +50,16 @@ return (
            :
            null
        }
-        
+            
         {
             data.length > 0 ? 
 
-            <ResponsiveContainer width="90%" height={500}>
-
-                <AreaChart  data = {data} >
+            <ResponsiveContainer width="90%" height={300}>
+                <AreaChart data = {data} >
                     <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
-                    <XAxis stroke="gold" dataKey="timeStamp"/>
+                    <XAxis stroke="gold" dataKey="timeStamp">
+                        <Label value="TEMPERATURE" fill="#fff" offset={0} position="insideBottom" />
+                    </XAxis>
                     <YAxis stroke="gold" />
                     <Tooltip/>
                     <defs>
@@ -67,9 +68,8 @@ return (
                             <stop stopOpacity={1} stopColor="red" offset = {off}></stop>
                         </linearGradient>
                     </defs>
-                    <ReferenceLine y={45} label="Critical"  stroke="red" strokeWidth = "5%"/>
-                    <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />
-                    <Area type="monotone" dataKey="Humidity" stroke="darkblue" fill="darkblue" />           
+                    <ReferenceLine y={45} label="CRITICAL"  stroke="red" strokeWidth = "5%"/>
+                    <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />          
                 </AreaChart> 
 
             </ResponsiveContainer>
@@ -77,6 +77,27 @@ return (
    
             :
             <Choke></Choke>
+        }
+            
+        {
+            data.length > 0 ? 
+
+            <ResponsiveContainer  width="90%" height={300}>
+                                        
+                <AreaChart data = {data} >
+                    <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
+                    <XAxis stroke="gold" dataKey="timeStamp">
+                         <Label value="HUMIDITY" fill="#fff" offset={0} position="insideBottom" />
+                    </XAxis>
+                    <YAxis stroke="gold" />
+                    <Tooltip/>
+                    <Area type="monotone" dataKey="Humidity" stroke="darkblue" fill="darkblue" />           
+                </AreaChart> 
+
+            </ResponsiveContainer>
+ 
+            :
+            null
         }
 
         </div>

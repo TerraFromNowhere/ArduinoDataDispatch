@@ -1,5 +1,13 @@
 import {getData} from './firebase.js'
 
+const mockedData = {
+    Sensor_ID:"N/A",
+    Belonging_to:"N/A",
+    Humidity:"0",
+    Voltage:"0",
+    Temperature:"0",
+    timeStamp:"00:00:00"
+};
 
 export const getDataPerDay = (stateData,setFetching,queryString) =>{
    
@@ -33,15 +41,7 @@ export const getDataPerDay = (stateData,setFetching,queryString) =>{
 
    }).catch(e =>{
         setFetching(false);
-        stateData([{
-            Sensor_ID:"No data fetched per last hour",
-            Belonging_to:"N/A",
-            Humidity:"0",
-            Voltage:"0",
-            Temperature:"0",
-            timeStamp:"00:00:00"
-
-        }]);      
+        stateData([mockedData]);      
    });
 
 }
@@ -49,9 +49,10 @@ export const getDataPerDay = (stateData,setFetching,queryString) =>{
 export const getDataPerHour = (stateData,setFetching,queryString) => {      
         return getData().ref(queryString).once('value').then(items =>{
             stateData(Object.values(items.val()));
-            console.log("Data fetched from sensor_1");
+            console.log("Data fetched succesfully");
        }).catch(e =>{
            console.log("Nothing to fetch, data is null");
+           stateData([mockedData]);
        });       
 }
 
@@ -60,13 +61,14 @@ export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
         return getData().ref(queryString).limitToLast(1).once('value').then(items =>{
            if(items.val() != null){
             stateData(Object.values(items.val()));
-            console.log("Data fetched from sensor_1");
+            console.log("Data fetched succesfully");
            }
            else {
-               console.log("Nothing to fetch, sensor send null");
+                return stateData([mockedData]);
            }
        }).catch(e =>{
-           throw new Error(`Error ${e}`);
+           console.log("Data fetching failed");
+           return stateData([mockedData]);
        });       
 }
 
