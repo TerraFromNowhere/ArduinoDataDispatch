@@ -59,7 +59,7 @@ module.exports = {
           localesToKeep:['es-us','ru']
         }) ,
 
-        new FileManagerPlugin({
+/*         new FileManagerPlugin({
           onEnd:{
             mkdir:[
               'build/img',
@@ -72,7 +72,7 @@ module.exports = {
               {source:'build/Bigspinner.png',destination:'build/img/Bigspinner.png'},
             ]
           }          
-        })
+        }) */
     ],
 
 }

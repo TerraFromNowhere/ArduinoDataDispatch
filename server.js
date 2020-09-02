@@ -20,7 +20,7 @@ let currentWeekNumber = moment().week();
 const F = require('./db/db.js');
 const FBD = F();
 
-const blackList = ['/img','/bundle'];
+const blackList = ['/'];
 
 application.use(expressLogging(logger,{blacklist:blackList}));
 
@@ -34,13 +34,19 @@ application.use(parser.urlencoded({ extended: true }));
 
 application.use(parser.json());
 
+application.use((req,res,next)=>{
 
-application.get('/',(req,res)=>{
-    res.sendFile(path.resolve(__dirname+'/build/index.html'));
+    let base = path.basename(req.originalUrl);
+    
+    console.log(base);
+
+    next();
+
 });
 
+application.use('/',(req,res)=>{
 
-application.post('/',(req,res)=>{
+    console.log(req.ip);
 
     if(!req.body){
         console.log("Body of request is undefined!");
