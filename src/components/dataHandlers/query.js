@@ -62,17 +62,17 @@ export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
         let prevIndication = {};
 
         return getData().ref(queryString).limitToLast(1).once('value').then(items =>{
-           if(items.val() != null){
+           if(items.val()){
                 prevIndication = Object.values(items.val());
                 stateData(prevIndication);
                 console.log("Data fetched succesfully");
            }
            else {
-                return prevIndication.length > 0 ? stateData([prevIndication]) : stateData([mockedData]);
+                return stateData([prevIndication]);
            }
        }).catch(e =>{
                 console.log("Data fetching failed");
-                return stateData([mockedData]);
+                return stateData([prevIndication]) || stateData([mockedData]);
        });       
 }
 
