@@ -72,7 +72,7 @@ export const realTimeQueryImitation = (stateData,setFetching,queryString) => {
            }
        }).catch(e =>{
                 console.log("Data fetching failed");
-                return stateData([mockedData]);
+                return prevIndication.length > 0 ? stateData([prevIndication]) : stateData([mockedData]);
        });       
 }
 

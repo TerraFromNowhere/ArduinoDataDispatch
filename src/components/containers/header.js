@@ -18,9 +18,9 @@ export const Header = () => {
 
                 <nav>
                     <UlFlexNav>
-                        <li><LinkNav to = "/">GENERAL TABLE</LinkNav></li>
-                        <li><LinkNav to = "/sensor">SENSOR DETAIL</LinkNav></li>
-                        <li><LinkNav to = "/brief">SHORT BRIEF</LinkNav></li>
+                        <li><LinkNav to = "/">СВОДНАЯ ТАБЛИЦА</LinkNav></li>
+                        <li><LinkNav to = "/sensor">ДЕТАЛИЗИРОВАННЫЙ ОТЧЕТ</LinkNav></li>
+                        <li><LinkNav to = "/brief">ИНСТРУКЦИЯ</LinkNav></li>
                     </UlFlexNav>
                 </nav>
                 <Switch>

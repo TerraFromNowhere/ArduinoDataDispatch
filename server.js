@@ -10,6 +10,8 @@ const path = require('path');
 const expressLogging  = require('express-logging');
 const logger = require('logops');
 
+const sqlConnect = require('./db/mssql/mssql.js');
+
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
 let currentHour = new Date().getHours();
@@ -19,6 +21,8 @@ let currentWeekNumber = moment().week();
 //db init, return REF
 const F = require('./db/db.js');
 const FBD = F();
+
+sqlConnect();
 
 const blackList = ['/'];
 
@@ -81,7 +85,7 @@ application.use('/',(req,res)=>{
         reqBody.Belonging_to = "K.T.O";
     }
     if(req.body.Sensor_ID === "3"){
-        reqBody.Belonging_to = "PR.HEAD";
+        reqBody.Belonging_to = "НАЧ.ПРОИЗВОДСТВА";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
 

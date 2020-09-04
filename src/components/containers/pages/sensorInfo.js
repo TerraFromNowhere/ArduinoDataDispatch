@@ -31,9 +31,9 @@ return (
 
                 <DivButtonContainer> 
 
-                    <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(seNumber||1,new Date().getHours()))}}>Get data per last hour</ButtonSensorMode>
-                    <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(seNumber||1))}}>Get data per last day</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>Switch to real time mode</ButtonSensorMode>
+                    <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(seNumber||1,new Date().getHours()))}}>ДАННЫЕ ЗА ЧАС</ButtonSensorMode>
+                    <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(seNumber||1))}}>ДАННЫЕ ЗА ДЕНЬ</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
 
                 </DivButtonContainer>
 
@@ -44,8 +44,8 @@ return (
        {
            data.length > 0 ? 
            <div style={{marginBottom:"20px",marginLeft:"20px"}}>
-            <SpanHeaders><SpanChartHeader>ID : {data[0].Sensor_ID}</SpanChartHeader></SpanHeaders>
-            <SpanHeaders><SpanChartHeader>Location : {data[0].Belonging_to}</SpanChartHeader></SpanHeaders>
+            <SpanHeaders><SpanChartHeader>НОМЕР : {data[0].Sensor_ID}</SpanChartHeader></SpanHeaders>
+            <SpanHeaders><SpanChartHeader>ЛОКАЦИЯ : {data[0].Belonging_to}</SpanChartHeader></SpanHeaders>
            </div>
            :
            null
@@ -58,7 +58,7 @@ return (
                 <AreaChart data = {data} >
                     <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
                     <XAxis stroke="gold" dataKey="timeStamp">
-                        <Label value="TEMPERATURE" fill="#fff" offset={0} position="insideBottom" />
+                        <Label value="ТЕМПЕРАТУРА" fill="#fff" offset={0} position="insideBottom" />
                     </XAxis>
                     <YAxis stroke="gold" />
                     <Tooltip/>
@@ -68,7 +68,7 @@ return (
                             <stop stopOpacity={1} stopColor="red" offset = {off}></stop>
                         </linearGradient>
                     </defs>
-                    <ReferenceLine y={45} label="CRITICAL"  stroke="red" strokeWidth = "5%"/>
+                    <ReferenceLine y={45} label="КРИТИЧЕСКАЯ ОТМЕТКА"  stroke="red" strokeWidth = "5%"/>
                     <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />          
                 </AreaChart> 
 
@@ -87,7 +87,7 @@ return (
                 <AreaChart data = {data} >
                     <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
                     <XAxis stroke="gold" dataKey="timeStamp">
-                         <Label value="HUMIDITY" fill="#fff" offset={0} position="insideBottom" />
+                         <Label value="ВЛАЖНОСТЬ" fill="#fff" offset={0} position="insideBottom" />
                     </XAxis>
                     <YAxis stroke="gold" />
                     <Tooltip/>

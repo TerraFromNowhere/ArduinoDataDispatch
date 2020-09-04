@@ -41,12 +41,12 @@ export const Sensor_1 = () => {
            
                 <DivDataWrapperSensor key = {i}>
  
-                 <DivDataContainerHeader> SENSOR_ID : { data[0].Sensor_ID  }   </DivDataContainerHeader>
-                 <DivDataContainerHeader> LOCATION : {data[0].Belonging_to  }  </DivDataContainerHeader>
-                 <DivDataContainer> Temperature : {data[0].Temperature }C</DivDataContainer>
-                 <DivDataContainer> Humidity : {data[0].Humidity }%      </DivDataContainer>
-                 <DivDataContainer> Voltage : {data[0].Voltage  }V        </DivDataContainer>
-                 <DivDataContainer> Received in : {data[0].timeStamp }    </DivDataContainer>
+                 <DivDataContainerHeader> НОМЕР СЕНСОРА : { data[0].Sensor_ID  }   </DivDataContainerHeader>
+                 <DivDataContainerHeader> ЛОКАЦИЯ : {data[0].Belonging_to  }  </DivDataContainerHeader>
+                 <DivDataContainer> ТЕМПЕРАТУРА : {data[0].Temperature }C</DivDataContainer>
+                 <DivDataContainer> ВЛАЖНОСТЬ : {data[0].Humidity }%      </DivDataContainer>
+                 <DivDataContainer> ВОЛЬТАЖ : {data[0].Voltage  }V        </DivDataContainer>
+                 <DivDataContainer> ПОЛУЧЕНО В : {data[0].timeStamp }    </DivDataContainer>
  
                 </DivDataWrapperSensor>
 
@@ -101,12 +101,12 @@ export const Sensor_2 = () => {
     
             return <DivDataWrapperSensor key = {i}>
      
-                     <DivDataContainerHeader> SENSOR_ID : { data2[0].Sensor_ID  }   </DivDataContainerHeader>
-                     <DivDataContainerHeader> LOCATION : {data2[0].Belonging_to  }  </DivDataContainerHeader>
-                     <DivDataContainer> Temperature : {data2[0].Temperature }C</DivDataContainer>
-                     <DivDataContainer> Humidity : {data2[0].Humidity }%      </DivDataContainer>
-                     <DivDataContainer> Voltage : {data2[0].Voltage  }V        </DivDataContainer>
-                     <DivDataContainer> Received in : {data2[0].timeStamp }    </DivDataContainer>
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data2[0].Sensor_ID  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data2[0].Belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data2[0].Temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data2[0].Humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data2[0].Voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data2[0].timeStamp }    </DivDataContainer>
      
                  </DivDataWrapperSensor> 
     
@@ -154,12 +154,12 @@ export const Sensor_3 = () => {
     
             return <DivDataWrapperSensor key = {i}>
      
-                     <DivDataContainerHeader> SENSOR_ID : { data3[0].Sensor_ID  }   </DivDataContainerHeader>
-                     <DivDataContainerHeader> LOCATION : {data3[0].Belonging_to  }  </DivDataContainerHeader>
-                     <DivDataContainer> Temperature : {data3[0].Temperature }C</DivDataContainer>
-                     <DivDataContainer> Humidity : {data3[0].Humidity }%      </DivDataContainer>
-                     <DivDataContainer> Voltage : {data3[0].Voltage  }V        </DivDataContainer>
-                     <DivDataContainer> Received in : {data3[0].timeStamp }    </DivDataContainer>
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data3[0].Sensor_ID  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data3[0].Belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data3[0].Temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data3[0].Humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data3[0].Voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data3[0].timeStamp }    </DivDataContainer>
      
                  </DivDataWrapperSensor> 
     

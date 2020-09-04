@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React from "react";
 import {Header} from "./containers/header";
 import {Footer} from './containers/footer';
 import {initApp} from './dataHandlers/firebase';
