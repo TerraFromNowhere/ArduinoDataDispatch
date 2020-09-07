@@ -7,10 +7,9 @@ const __SERVER_IP = "192.168.0.95";
 const parser = require('body-parser');
 const moment = require('moment');
 const path = require('path');
-const expressLogging  = require('express-logging');
-const logger = require('logops');
+const fs = require('fs');
 
-const sqlConnect = require('./db/mssql/mssql.js');
+const sql = require('./db/mssql/mssql.js');
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
@@ -21,14 +20,6 @@ let currentWeekNumber = moment().week();
 //db init, return REF
 const F = require('./db/db.js');
 const FBD = F();
-
-sqlConnect();
-
-const blackList = ['/'];
-
-application.use(expressLogging(logger,{blacklist:blackList}));
-
-application.use(express.static(__dirname+'/build'));
 
 application.use(CORS());
 
@@ -41,16 +32,27 @@ application.use(parser.json());
 application.use((req,res,next)=>{
 
     let base = path.basename(req.originalUrl);
-    
-    console.log(base);
+    let extension = path.extname(base);
 
+    if(extension === ".js"){
+
+        if(req.ip !== __SERVER_IP){
+          
+        let logStr = `Incomming request from ${req.ip},received in ${moment().format("DD.MM.YYYY HH:mm:ss")}\n`
+        fs.writeFile('requestLogs.txt',logStr,{flag:'a+'},err=>{
+            if(err){
+                console.log("Unable to write into file");
+            }
+        });
+        console.log(`Inc. req. => ${req.ip}`);
+
+        }
+    }
     next();
 
-});
+},express.static(__dirname+'/build'));
 
 application.use('/',(req,res)=>{
-
-    console.log(req.ip);
 
     if(!req.body){
         console.log("Body of request is undefined!");
@@ -88,7 +90,25 @@ application.use('/',(req,res)=>{
         reqBody.Belonging_to = "НАЧ.ПРОИЗВОДСТВА";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
+    if(req.body.Sensor_ID === "NaN"){
+        return;
+    }
 
+    let qs = sql.mssqlQueryString(
+        reqBody.Sensor_ID,
+        reqBody.Belonging_to,
+        reqBody.Temperature,
+        reqBody.Humidity,
+        reqBody.Voltage,
+        reqBody.timeStamp,
+        currentYear,
+        currentMonth,
+        currentWeekNumber,
+        currentDay,
+        currentHour
+    );
+
+    sql.mssqlConnectDataPusher(qs);
     FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
