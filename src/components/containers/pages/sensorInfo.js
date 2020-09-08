@@ -9,11 +9,14 @@ import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Toolt
 import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
 
 
+
 export const SensorInfo = () => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
     let [seNumber,setSeNumber] = useState([]);
+
+    let [specialData,setSpecialData] = useState([]);
 
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
@@ -34,6 +37,19 @@ return (
                     <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(seNumber||1,new Date().getHours()))}}>ДАННЫЕ ЗА ЧАС</ButtonSensorMode>
                     <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(seNumber||1))}}>ДАННЫЕ ЗА ДЕНЬ</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{
+
+                        fetch('http://192.168.0.95/getdata')
+                         .then(result => {
+                            result.json();
+                        }) 
+                        .then(res => {
+                            setSpecialData(res);
+                            console.log(specialData);
+                        });
+                        
+                   
+                    }}>SQL QUERY</ButtonSensorMode>
 
                 </DivButtonContainer>
 

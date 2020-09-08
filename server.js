@@ -29,6 +29,8 @@ application.use(parser.urlencoded({ extended: true }));
 
 application.use(parser.json());
 
+
+
 application.use((req,res,next)=>{
 
     let base = path.basename(req.originalUrl);
@@ -51,6 +53,16 @@ application.use((req,res,next)=>{
     next();
 
 },express.static(__dirname+'/build'));
+
+application.use('/getdata',async (req,res)=>{
+    let qs = `SELECT * FROM dbo.Sensor_2 WHERE day > 1`;
+    console.log('Query received'); 
+    sql.mssqlConnectDataPusher(qs,'get').then( res => {
+        console.dir(result);
+    });  
+        
+
+})
 
 application.use('/',(req,res)=>{
 
@@ -108,7 +120,7 @@ application.use('/',(req,res)=>{
         currentHour
     );
 
-    sql.mssqlConnectDataPusher(qs);
+    sql.mssqlConnectDataPusher(qs,'set');
     FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
