@@ -21,6 +21,14 @@ export const SensorInfo = () => {
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
 
+    const fetchData = (unitOfTime) => {
+
+        fetch(`http://192.168.0.95/${unitOfTime}`).then(result => {
+            result.json().then(res => {setSpecialData(res)});
+        });
+
+    }
+
   
 return (
 
@@ -39,15 +47,7 @@ return (
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{
 
-                        fetch('http://192.168.0.95/getdata')
-                         .then(result => {
-                            result.json();
-                        }) 
-                        .then(res => {
-                            setSpecialData(res);
-                            console.log(specialData);
-                        });
-                        
+
                    
                     }}>SQL QUERY</ButtonSensorMode>
 

@@ -9,7 +9,12 @@ const moment = require('moment');
 const path = require('path');
 const fs = require('fs');
 
-const sql = require('./db/mssql/mssql.js');
+const sqldb = require('./db/mssql/mssql.js');
+
+const sql = require('mssql');
+
+const credentials = require('./db/data/sqlCredentials.js');
+
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
@@ -19,6 +24,7 @@ let currentWeekNumber = moment().week();
 
 //db init, return REF
 const F = require('./db/db.js');
+const { json } = require('body-parser');
 const FBD = F();
 
 application.use(CORS());
@@ -28,8 +34,6 @@ application.options('*',CORS());
 application.use(parser.urlencoded({ extended: true }));
 
 application.use(parser.json());
-
-
 
 application.use((req,res,next)=>{
 
@@ -54,14 +58,20 @@ application.use((req,res,next)=>{
 
 },express.static(__dirname+'/build'));
 
-application.use('/getdata',async (req,res)=>{
-    let qs = `SELECT * FROM dbo.Sensor_2 WHERE day > 1`;
-    console.log('Query received'); 
-    sql.mssqlConnectDataPusher(qs,'get').then( res => {
-        console.dir(result);
-    });  
-        
+application.use('/realtime',async (req,res)=>{
+            
+    try{
 
+        await sql.connect(credentials);
+        const result = await sql.query`SELECT TOP 1 * FROM Sensor_${id} WHERE year = `;
+        console.dir(result.recordset);
+        res.send(result.recordset);
+       
+    }
+    catch(e){
+        console.log(e);
+    }
+  
 })
 
 application.use('/',(req,res)=>{
@@ -106,7 +116,8 @@ application.use('/',(req,res)=>{
         return;
     }
 
-    let qs = sql.mssqlQueryString(
+    let qs = sqldb.mssqlQueryString(
+        'INSERT INTO',
         reqBody.Sensor_ID,
         reqBody.Belonging_to,
         reqBody.Temperature,
@@ -120,7 +131,7 @@ application.use('/',(req,res)=>{
         currentHour
     );
 
-    sql.mssqlConnectDataPusher(qs,'set');
+    sqldb.mssqlConnectDataPusher(qs,'set');
     FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
