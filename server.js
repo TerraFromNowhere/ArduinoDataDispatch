@@ -2,8 +2,11 @@ const express= require('express');
 const application = express();
 const http = require('http');
 const CORS = require('cors');
-const port = 80;
-const __SERVER_IP = "192.168.0.95";
+
+const config = require('./configuration.js');
+const __PORT = config.__PORT;
+const __SERVER_IP = config.__SERVER_IP;
+
 const parser = require('body-parser');
 const moment = require('moment');
 const path = require('path');
@@ -14,7 +17,6 @@ const sqldb = require('./db/mssql/mssql.js');
 const sql = require('mssql');
 
 const credentials = require('./db/data/sqlCredentials.js');
-
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth()+1;
@@ -58,21 +60,55 @@ application.use((req,res,next)=>{
 
 },express.static(__dirname+'/build'));
 
-application.use('/realtime',async (req,res)=>{
-            
-    try{
 
-        await sql.connect(credentials);
-        const result = await sql.query`SELECT TOP 1 * FROM Sensor_${id} WHERE year = `;
-        console.dir(result.recordset);
-        res.send(result.recordset);
+application.use('/hour/:id',async (req,res)=>{
        
+    let id = req.originalUrl.split('/')[2];
+    const se = `Sensor_` + id;
+
+    try{
+        await sql.connect(credentials);
+        const result = await sql.query(`SELECT * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp`);
+        res.send(result.recordset);       
     }
     catch(e){
         console.log(e);
     }
   
-})
+});
+
+application.use('/day/:id',async (req,res)=>{
+       
+    let id = req.originalUrl.split('/')[2];
+    const se = `Sensor_` + id;
+
+    try{
+        await sql.connect(credentials);
+        const result = await sql.query(`SELECT * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} ORDER BY timestamp`);
+        res.send(result.recordset);       
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+});
+
+application.use('/realtime/:id',async (req,res)=>{
+       
+    let id = req.originalUrl.split('/')[2];
+    const se = `Sensor_` + id;
+
+    try{
+        await sql.connect(credentials);
+        const result = await sql.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
+        res.send(result.recordset);              
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+});
+
 
 application.use('/',(req,res)=>{
 
@@ -116,8 +152,7 @@ application.use('/',(req,res)=>{
         return;
     }
 
-    let qs = sqldb.mssqlQueryString(
-        'INSERT INTO',
+    let qs = sqldb.mssqlQueryStringInsert(
         reqBody.Sensor_ID,
         reqBody.Belonging_to,
         reqBody.Temperature,
@@ -131,7 +166,7 @@ application.use('/',(req,res)=>{
         currentHour
     );
 
-    sqldb.mssqlConnectDataPusher(qs,'set');
+    sqldb.mssqlConnectDataPusher(qs);
     FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
@@ -139,7 +174,7 @@ application.use('/',(req,res)=>{
 
 
 const httpServer = http.createServer(application);
-httpServer.listen(port,__SERVER_IP);
+httpServer.listen(__PORT,__SERVER_IP);
 
 console.log('Server running at 192.168.0.95:80');
 
