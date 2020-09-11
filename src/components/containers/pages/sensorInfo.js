@@ -7,7 +7,7 @@ import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
 import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
 import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
-
+import {fetchData} from '../../dataHandlers/fetchData';
 
 
 export const SensorInfo = () => {
@@ -21,35 +21,23 @@ export const SensorInfo = () => {
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
 
-    const fetchData = (unitOfTime) => {
-
-        fetch(`http://192.168.0.95/${unitOfTime}`).then(result => {
-            result.json().then(res => {setSpecialData(res)});
-        });
-
-    }
-
   
 return (
 
         <div>
         
             <StyledForm>       
-                <StyledInput onKeyPress = {(eve)=>{keyNullifier(eve)}} onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text"></StyledInput>
+                <StyledInput  onKeyPress = {(eve)=>{keyNullifier(eve)}} onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text" ></StyledInput>
             </StyledForm>
 
         
 
                 <DivButtonContainer> 
-
-                    <ButtonSensorMode onClick={()=>{getDataPerHour(stateData,setFetching,getQueryString(seNumber||1,new Date().getHours()))}}>ДАННЫЕ ЗА ЧАС</ButtonSensorMode>
-                    <ButtonSensorMode onClick={()=>{getDataPerDay(stateData,setFetching,getQueryString(seNumber||1))}}>ДАННЫЕ ЗА ДЕНЬ</ButtonSensorMode>
+ 
+                    <ButtonSensorMode onClick = {()=>{fetchData('hour',setSpecialData,seNumber)}}>Данные за час</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{fetchData('day',setSpecialData,seNumber)}}>Данные за день</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{fetchData('realtime',setSpecialData,seNumber)}}>RT</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{
-
-
-                   
-                    }}>SQL QUERY</ButtonSensorMode>
 
                 </DivButtonContainer>
 

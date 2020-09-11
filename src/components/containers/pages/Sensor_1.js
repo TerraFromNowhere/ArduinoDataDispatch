@@ -4,6 +4,7 @@ import {realTimeQueryImitation} from '../../dataHandlers/query';
 import {useState,useEffect} from 'react';
 import {getQueryString} from '../../../const/queryConst';
 import spinner from '../../img/spinner.png';
+import {fetchData} from '../../dataHandlers/fetchData';
 
 
 export const Sensor_1 = () => {
@@ -15,7 +16,7 @@ export const Sensor_1 = () => {
 
         setFetching(true); 
         let interval = setInterval(()=>{             
-            realTimeQueryImitation(stateData,setFetching,getQueryString(1,new Date().getHours()));
+            fetchData('realtime',stateData,1);
             setFetching(false);
         },5000);
     
