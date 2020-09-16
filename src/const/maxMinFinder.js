@@ -3,11 +3,11 @@
 export const dataMaxMinFinder = (data) =>{
 
     const maxValue = Math.max(...data.map((item)=>{
-      return  item.Temperature;
+      return  item.temperature;
     }));
 
     const minValue = Math.min(...data.map((item)=>{
-        return  item.Temperature;
+        return  item.temperature;
       }));
 
     if( maxValue <= 0){

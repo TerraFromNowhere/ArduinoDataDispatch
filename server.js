@@ -101,7 +101,15 @@ application.use('/realtime/:id',async (req,res)=>{
     try{
         await sql.connect(credentials);
         const result = await sql.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
-        res.send(result.recordset);              
+               
+       if(result.recordset.length === 0){
+        result.recordset[0] = {belonging_to:"N/A",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
+           res.send(result.recordset);
+       }
+       else{
+            res.send(result.recordset);
+       }
+        
     }
     catch(e){
         console.log(e);

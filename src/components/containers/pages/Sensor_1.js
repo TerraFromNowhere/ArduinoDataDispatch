@@ -1,8 +1,6 @@
 import React from 'react';
 import {RotatedImg,DivDataContainer,DivDataContainerHeader,DivDataWrapperSensor} from '../styledContainers/sComponents';
-import {realTimeQueryImitation} from '../../dataHandlers/query';
 import {useState,useEffect} from 'react';
-import {getQueryString} from '../../../const/queryConst';
 import spinner from '../../img/spinner.png';
 import {fetchData} from '../../dataHandlers/fetchData';
 
@@ -42,12 +40,12 @@ export const Sensor_1 = () => {
            
                 <DivDataWrapperSensor key = {i}>
  
-                 <DivDataContainerHeader> НОМЕР СЕНСОРА : { data[0].Sensor_ID  }   </DivDataContainerHeader>
-                 <DivDataContainerHeader> ЛОКАЦИЯ : {data[0].Belonging_to  }  </DivDataContainerHeader>
-                 <DivDataContainer> ТЕМПЕРАТУРА : {data[0].Temperature }C</DivDataContainer>
-                 <DivDataContainer> ВЛАЖНОСТЬ : {data[0].Humidity }%      </DivDataContainer>
-                 <DivDataContainer> ВОЛЬТАЖ : {data[0].Voltage  }V        </DivDataContainer>
-                 <DivDataContainer> ПОЛУЧЕНО В : {data[0].timeStamp }    </DivDataContainer>
+                 <DivDataContainerHeader> НОМЕР СЕНСОРА : { data[0].sensor_id  }   </DivDataContainerHeader>
+                 <DivDataContainerHeader> ЛОКАЦИЯ : {data[0].belonging_to  }  </DivDataContainerHeader>
+                 <DivDataContainer> ТЕМПЕРАТУРА : {data[0].temperature }C</DivDataContainer>
+                 <DivDataContainer> ВЛАЖНОСТЬ : {data[0].humidity }%      </DivDataContainer>
+                 <DivDataContainer> ВОЛЬТАЖ : {data[0].voltage  }V        </DivDataContainer>
+                 <DivDataContainer> ПОЛУЧЕНО В : {data[0].timestamp }    </DivDataContainer>
  
                 </DivDataWrapperSensor>
 
@@ -77,7 +75,7 @@ export const Sensor_2 = () => {
 
         setFetching(true); 
         let interval = setInterval(()=>{                    
-            realTimeQueryImitation(stateData2,setFetching,getQueryString(2,new Date().getHours()));
+            fetchData('realtime',stateData2,2);
             setFetching(false);
         },5000);
     
@@ -102,12 +100,12 @@ export const Sensor_2 = () => {
     
             return <DivDataWrapperSensor key = {i}>
      
-                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data2[0].Sensor_ID  }   </DivDataContainerHeader>
-                     <DivDataContainerHeader> ЛОКАЦИЯ : {data2[0].Belonging_to  }  </DivDataContainerHeader>
-                     <DivDataContainer> ТЕМПЕРАТУРА : {data2[0].Temperature }C</DivDataContainer>
-                     <DivDataContainer> ВЛАЖНОСТЬ : {data2[0].Humidity }%      </DivDataContainer>
-                     <DivDataContainer> ВОЛЬТАЖ : {data2[0].Voltage  }V        </DivDataContainer>
-                     <DivDataContainer> ПОЛУЧЕНО В : {data2[0].timeStamp }    </DivDataContainer>
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data2[0].sensor_id  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data2[0].belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data2[0].temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data2[0].humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data2[0].voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data2[0].timestamp }    </DivDataContainer>
      
                  </DivDataWrapperSensor> 
     
@@ -131,7 +129,7 @@ export const Sensor_3 = () => {
 
         setFetching(true); 
         let interval = setInterval(()=>{             
-            realTimeQueryImitation(stateData3,setFetching,getQueryString(3,new Date().getHours()));
+            fetchData('realtime',stateData3,3);
             setFetching(false);
         },5000);
     
@@ -155,12 +153,12 @@ export const Sensor_3 = () => {
     
             return <DivDataWrapperSensor key = {i}>
      
-                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data3[0].Sensor_ID  }   </DivDataContainerHeader>
-                     <DivDataContainerHeader> ЛОКАЦИЯ : {data3[0].Belonging_to  }  </DivDataContainerHeader>
-                     <DivDataContainer> ТЕМПЕРАТУРА : {data3[0].Temperature }C</DivDataContainer>
-                     <DivDataContainer> ВЛАЖНОСТЬ : {data3[0].Humidity }%      </DivDataContainer>
-                     <DivDataContainer> ВОЛЬТАЖ : {data3[0].Voltage  }V        </DivDataContainer>
-                     <DivDataContainer> ПОЛУЧЕНО В : {data3[0].timeStamp }    </DivDataContainer>
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data3[0].sensor_id  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data3[0].belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data3[0].temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data3[0].humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data3[0].voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data3[0].timestamp }    </DivDataContainer>
      
                  </DivDataWrapperSensor> 
     

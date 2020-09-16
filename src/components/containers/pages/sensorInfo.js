@@ -1,7 +1,5 @@
 import React , {useState} from 'react';
-import {getDataPerDay,getDataPerHour} from '../../dataHandlers/query';
 import {SpanChartHeader,SpanHeaders,StyledForm,DivButtonContainer,ButtonSensorMode,StyledInput} from '../styledContainers/sComponents';
-import {getQueryString} from '../../../const/queryConst';
 import {dataMaxMinFinder} from '../../../const/maxMinFinder';
 import {useHistory} from 'react-router-dom';
 import {Choke} from '../choke';
@@ -16,7 +14,6 @@ export const SensorInfo = () => {
     let [fetching,setFetching] = useState(false);
     let [seNumber,setSeNumber] = useState([]);
 
-    let [specialData,setSpecialData] = useState([]);
 
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
@@ -34,9 +31,8 @@ return (
 
                 <DivButtonContainer> 
  
-                    <ButtonSensorMode onClick = {()=>{fetchData('hour',setSpecialData,seNumber)}}>Данные за час</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{fetchData('day',setSpecialData,seNumber)}}>Данные за день</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{fetchData('realtime',setSpecialData,seNumber)}}>RT</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{fetchData('hour',stateData,seNumber)}}>Данные за час</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{fetchData('day',stateData,seNumber)}}>Данные за день</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
 
                 </DivButtonContainer>
@@ -48,8 +44,8 @@ return (
        {
            data.length > 0 ? 
            <div style={{marginBottom:"20px",marginLeft:"20px"}}>
-            <SpanHeaders><SpanChartHeader>НОМЕР : {data[0].Sensor_ID}</SpanChartHeader></SpanHeaders>
-            <SpanHeaders><SpanChartHeader>ЛОКАЦИЯ : {data[0].Belonging_to}</SpanChartHeader></SpanHeaders>
+            <SpanHeaders><SpanChartHeader>НОМЕР : {data[0].sensor_id}</SpanChartHeader></SpanHeaders>
+            <SpanHeaders><SpanChartHeader>ЛОКАЦИЯ : {data[0].belonging_to}</SpanChartHeader></SpanHeaders>
            </div>
            :
            null
@@ -61,7 +57,7 @@ return (
             <ResponsiveContainer width="90%" height={300}>
                 <AreaChart data = {data} >
                     <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
-                    <XAxis stroke="gold" dataKey="timeStamp">
+                    <XAxis stroke="gold" dataKey="timestamp">
                         <Label value="ТЕМПЕРАТУРА" fill="#fff" offset={0} position="insideBottom" />
                     </XAxis>
                     <YAxis stroke="gold" />
@@ -73,7 +69,7 @@ return (
                         </linearGradient>
                     </defs>
                     <ReferenceLine y={45} label="КРИТИЧЕСКАЯ ОТМЕТКА"  stroke="red" strokeWidth = "5%"/>
-                    <Area  type="monotone" dataKey="Temperature" stroke="#8884d8" fill="url(#split)" />          
+                    <Area  type="monotone" dataKey="temperature" stroke="#8884d8" fill="url(#split)" />          
                 </AreaChart> 
 
             </ResponsiveContainer>
@@ -90,12 +86,12 @@ return (
                                         
                 <AreaChart data = {data} >
                     <CartesianGrid strokeDasharray = "5 5" color = "lighgray" stroke = "green"/>
-                    <XAxis stroke="gold" dataKey="timeStamp">
+                    <XAxis stroke="gold" dataKey="timestamp">
                          <Label value="ВЛАЖНОСТЬ" fill="#fff" offset={0} position="insideBottom" />
                     </XAxis>
                     <YAxis stroke="gold" />
                     <Tooltip/>
-                    <Area type="monotone" dataKey="Humidity" stroke="darkblue" fill="darkblue" />           
+                    <Area type="monotone" dataKey="humidity" stroke="darkblue" fill="darkblue" />           
                 </AreaChart> 
 
             </ResponsiveContainer>
