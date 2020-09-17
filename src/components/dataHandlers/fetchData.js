@@ -7,6 +7,5 @@ export const fetchData = (unitOfTime,setSpecialData,id) => {
     .then(result => {
         result.json().then(res => {setSpecialData(res)})
     })
-    .catch(e => {console.log(e)});
-    
+    .catch(e => {console.log(e)});    
 }
