@@ -11,7 +11,7 @@
 
 EthernetClient ethernet;
 
-HttpClient client = HttpClient(ethernet,"192.168.0.95", 80);
+HttpClient client = HttpClient(ethernet,"192.168.0.2", 9000);
 
  
 const int chipSelect = 47;

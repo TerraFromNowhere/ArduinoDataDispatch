@@ -49,7 +49,7 @@ application.use((req,res,next)=>{
 
         if(req.ip !== __SERVER_IP){
           
-        let logStr = `Incomming request from ${req.ip},received in ${moment().format("DD.MM.YYYY HH:mm:ss")}\n`
+        let logStr = `Incoming request from ${req.ip},received in ${moment().format("DD.MM.YYYY HH:mm:ss")}\n`
         fs.writeFile('requestLogs.txt',logStr,{flag:'a+'},err=>{
             if(err){
                 console.log("Unable to write into file");
