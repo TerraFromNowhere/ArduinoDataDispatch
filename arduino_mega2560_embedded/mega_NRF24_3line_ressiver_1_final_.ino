@@ -11,7 +11,7 @@
 
 EthernetClient ethernet;
 
-HttpClient client = HttpClient(ethernet,"192.168.0.95", 80);
+HttpClient client = HttpClient(ethernet,"192.168.0.2", 9000);
 
  
 const int chipSelect = 47;
@@ -21,14 +21,17 @@ IPAddress ip(192, 168, 0, 3);   // The IP address will be depend on your local n
 iarduino_OLED_txt myOLED(0x3C);  // Объявляем объект myOLED, указывая адрес дисплея на шине I2C: 0x3C или 0x3D.
 extern uint8_t MediumFontRus[];  // Подключаем шрифт MediumFontRus.
 DS3231  rtc(SDA, SCL);           // Init the DS3231 using the hardware interface
-//uint8_t    pipe;    // Создаём переменную для хранения номера трубы, по которой пришли данные
-//only unsigned long could be passed into delay function greater than 32000 values
+
+//only unsigned long could be passed into delay counter, if you will to handle numbers above 64k
 unsigned long del = 30000;
 
 uint8_t  pipe = 0;
 uint64_t  pipe01 = 0xAABBCCDD22LL ;
 uint64_t  pipe02 = 0xAABBCCDD11LL ;
-uint64_t  pipe03 = 0xAABBCCDD33LL ;  
+uint64_t  pipe03 = 0xAABBCCDD33LL ;
+uint64_t  pipe04 = 0xAABBCCDD44LL ;
+uint64_t  pipe05 = 0xAABBCCDD55LL ;
+uint64_t  pipe06 = 0xAABBCCDD66LL ;  
 
 EthernetServer server(8080);
 
@@ -85,10 +88,13 @@ void radioInitialise(){
   radio.setChannel(9); // канал (0-127)
   radio.setDataRate(RF24_1MBPS);     // скорость, RF24_250KBPS, RF24_1MBPS или RF24_2MBPS  // RF24_250KBPS на nRF24L01 (без +) неработает.// меньше скорость, выше чувствительность приемника.
   radio.setPALevel(RF24_PA_HIGH);   // мощьность передатчика RF24_PA_MIN=-18dBm, RF24_PA_LOW=-12dBm, RF24_PA_MED=-6dBM,
-  radio.openReadingPipe (1,pipe01);                 // Открываем 1 трубу с идентификатором 1 передатчика 0xAABBCCDD11, для приема данных
-  radio.openReadingPipe (2,pipe02);                 // Открываем 2 трубу с идентификатором 2 передатчика 0xAABBCCDD22, для приема данных
-  radio.openReadingPipe (3,pipe03);                 // Открываем 3 трубу с идентификатором 3 передатчика 0xAABBCCDD22, для приема данных
-  radio.startListening(); // включаем приемник, начинаем слушать трубу
+  radio.openReadingPipe (1,pipe01); 
+  radio.openReadingPipe (2,pipe02);  
+  radio.openReadingPipe (3,pipe03);
+  radio.openReadingPipe (4,pipe04);
+  radio.openReadingPipe (5,pipe05);
+  radio.openReadingPipe (6,pipe06);
+  radio.startListening(); 
 }
 
 
@@ -122,7 +128,7 @@ void ethernetInitialise(){
 
   // see if the card is present and can be initialized:
   if (!SD.begin(chipSelect)) {
-    Serial.println("Card failed, or not present");
+    Serial.println("Card failed, or not presented");
     // don't do anything more:
     while (1);
   }
@@ -290,6 +296,115 @@ void radioSetup(){
        Serial.println(prevData);
 
         data[3] = 3;
+        
+        Serial.print("Temp :");
+        Serial.println(data[0]);
+        Serial.print("Humidity(%): ");
+        Serial.print(data[1]);
+        Serial.print("Vol: ");
+        Serial.println(data[2]/1000);
+        Serial.println();
+        myOLED.clrScr();
+        myOLED.print(F("Temp:"), 1,   1);
+        myOLED.print((data[0]), 65,     1);
+        myOLED.print(F("Hum."), 1,     4);
+        myOLED.print((data[1]), 65,     4);
+        myOLED.print(F("Volt."), 1,     7);
+        myOLED.print((data[2]/1000), 65,     7);
+     
+      Serial.print(pipe);
+   
+      sdcardSerialize(data);
+      HTTPSerialize(data);
+        
+    }
+
+        if(pipe==4)  {
+
+        if(prevData != 4){
+          
+          prevData = 4;
+          radio.read(&data, sizeof(data)); 
+          
+        }
+
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
+
+        data[3] = 4;
+        
+        Serial.print("Temp :");
+        Serial.println(data[0]);
+        Serial.print("Humidity(%): ");
+        Serial.print(data[1]);
+        Serial.print("Vol: ");
+        Serial.println(data[2]/1000);
+        Serial.println();
+        
+        myOLED.clrScr();
+        myOLED.print(F("Temp:"), 1,   1);
+        myOLED.print((data[0]), 65,     1);
+        myOLED.print(F("Hum."), 1,     4);
+        myOLED.print((data[1]), 65,     4);
+        myOLED.print(F("Volt."), 1,     7);
+        myOLED.print((data[2]/1000), 65,     7);
+     
+        Serial.print(pipe);
+   
+        sdcardSerialize(data);
+        HTTPSerialize(data);
+        
+    }
+
+      if(pipe==5)  {
+
+        if(prevData != 5){
+          
+          prevData = 5;
+          radio.read(&data, sizeof(data)); 
+          
+        }
+
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
+
+        data[3] = 5;
+        
+        Serial.print("Temp :");
+        Serial.println(data[0]);
+        Serial.print("Humidity(%): ");
+        Serial.print(data[1]);
+        Serial.print("Vol: ");
+        Serial.println(data[2]/1000);
+        Serial.println();
+        myOLED.clrScr();
+        myOLED.print(F("Temp:"), 1,   1);
+        myOLED.print((data[0]), 65,     1);
+        myOLED.print(F("Hum."), 1,     4);
+        myOLED.print((data[1]), 65,     4);
+        myOLED.print(F("Volt."), 1,     7);
+        myOLED.print((data[2]/1000), 65,     7);
+     
+      Serial.print(pipe);
+   
+      sdcardSerialize(data);
+      HTTPSerialize(data);
+        
+    }
+
+   if(pipe==6)  {
+
+        if(prevData != 6){
+          
+          prevData = 6;
+          radio.read(&data, sizeof(data)); 
+          
+        }
+
+       Serial.println("Prev. data take off from");
+       Serial.println(prevData);
+
+        data[3] = 6;
         
         Serial.print("Temp :");
         Serial.println(data[0]);
