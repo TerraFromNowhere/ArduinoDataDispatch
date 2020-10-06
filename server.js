@@ -106,7 +106,7 @@ application.use('/realtime/:id',async (req,res)=>{
         const result = await sql.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
                
        if(result.recordset.length === 0){
-        result.recordset[0] = {belonging_to:"N/A",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
+        result.recordset[0] = {belonging_to:"Place vacated!",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
       
         res.send(result.recordset);
        }
@@ -159,6 +159,14 @@ application.use('/',(req,res)=>{
     }
     if(req.body.Sensor_ID === "3"){
         reqBody.Belonging_to = "НАЧ.ПРОИЗВОДСТВА";
+        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+    }
+    if(req.body.Sensor_ID === "4"){
+        reqBody.Belonging_to = "Place vacated!";
+        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+    }
+    if(req.body.Sensor_ID === "5"){
+        reqBody.Belonging_to = "Place vacated";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "NaN"){
