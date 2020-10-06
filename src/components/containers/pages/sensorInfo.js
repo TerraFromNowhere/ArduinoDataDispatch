@@ -24,7 +24,7 @@ return (
         <div>
         
             <StyledForm>       
-                <StyledInput  onKeyPress = {(eve)=>{keyNullifier(eve)}} onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-3)" className="inp" type="text" ></StyledInput>
+                <StyledInput  onKeyPress = {(eve)=>{keyNullifier(eve)}} onChange={(eve)=>{submitValidator(eve,setSeNumber)}} placeholder = "Set sensor id (1-5)" className="inp" type="text" ></StyledInput>
             </StyledForm>
 
         
