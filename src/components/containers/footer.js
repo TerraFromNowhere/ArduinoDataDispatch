@@ -2,7 +2,8 @@ import React from "react";
 import {DivRowFlex,DivRowFlexFooter,DivColFlex,SpanHeaders,SpanText,LinkFooter,SpanTextFooter,FooterStyled} from './styledContainers/sComponents';
 
 const footerStyle = {
-    backgroundColor:"#eff4fa"
+    backgroundColor:"#eff4fa",
+    visibility:"hidden"
 }
 
 
