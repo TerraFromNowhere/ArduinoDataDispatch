@@ -111,7 +111,7 @@ application.use('/realtime/:id',async (req,res)=>{
         res.send(result.recordset);
        }
        else{
-       
+      
         res.send(result.recordset);
        }
         
