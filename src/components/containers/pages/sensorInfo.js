@@ -7,8 +7,10 @@ import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Toolt
 import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
 import {fetchData} from '../../dataHandlers/fetchData';
 
+import {GET_DATA} from '../../../actions/actions';
 
-export const SensorInfo = () => {
+
+export const SensorInfo = (props) => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
@@ -17,8 +19,8 @@ export const SensorInfo = () => {
 
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
-
-  
+    const {dispatch} = props;
+    
 return (
 
         <div>
@@ -34,6 +36,7 @@ return (
                     <ButtonSensorMode onClick = {()=>{fetchData('hour',stateData,seNumber)}}>Данные за час</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{fetchData('day',stateData,seNumber)}}>Данные за день</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{GET_DATA('day',dispatch,seNumber)}}>REDUX</ButtonSensorMode>
 
                 </DivButtonContainer>
 

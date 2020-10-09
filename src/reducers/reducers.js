@@ -1,5 +1,5 @@
 
-import * as action from '../actions/actions';
+import {GET_DATA} from '../actions/actions';
 
 const initialState = {
     data : [],
@@ -9,8 +9,11 @@ const initialState = {
 
 export const mainReducer = (state = initialState,action) => {
     switch(action.type){
-        case "FETCH_DATA" :
-            return dispatch(action.payload())
+        case GET_DATA :
+            return {
+                ...state,
+                data:action.payload
+            }
         default :
             return {...state}           
     }
