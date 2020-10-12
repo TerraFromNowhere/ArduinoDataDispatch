@@ -175,7 +175,7 @@ application.use('/',(req,res)=>{
     );
 
     sqldb.mssqlConnectDataPusher(qs);
-    FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
+   // FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
 });
