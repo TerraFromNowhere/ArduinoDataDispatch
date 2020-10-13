@@ -1,5 +1,6 @@
 const express= require('express');
 const application = express();
+
 const http = require('http');
 const CORS = require('cors');
 
@@ -29,13 +30,15 @@ const F = require('./db/db.js');
 const { json } = require('body-parser');
 const FBD = F();
 
-application.use(CORS());
+
+application.use(CORS({origin: '*'}));
 
 application.options('*',CORS());
 
 application.use(parser.urlencoded({ extended: true }));
 
 application.use(parser.json());
+
 
 application.use((req,res,next)=>{
 
@@ -46,7 +49,7 @@ application.use((req,res,next)=>{
 
         if(req.ip !== __SERVER_IP){
           
-        let logStr = `Incomming request from ${req.ip},received in ${moment().format("DD.MM.YYYY HH:mm:ss")}\n`
+        let logStr = `Incoming request from ${req.ip},received in ${moment().format("DD.MM.YYYY HH:mm:ss")}\n`
         fs.writeFile('requestLogs.txt',logStr,{flag:'a+'},err=>{
             if(err){
                 console.log("Unable to write into file");
@@ -103,11 +106,13 @@ application.use('/realtime/:id',async (req,res)=>{
         const result = await sql.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
                
        if(result.recordset.length === 0){
-        result.recordset[0] = {belonging_to:"N/A",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
-           res.send(result.recordset);
+        result.recordset[0] = {belonging_to:"Place vacated!",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
+      
+        res.send(result.recordset);
        }
        else{
-            res.send(result.recordset);
+      
+        res.send(result.recordset);
        }
         
     }
@@ -147,13 +152,21 @@ application.use('/',(req,res)=>{
     reqBody.Temperature = Math.round(req.body.Temperature)+"";
 
     if(req.body.Sensor_ID === "1"){
-        reqBody.Belonging_to = "UNKNOWN";
+        reqBody.Belonging_to = "Battery";
     }
     if(req.body.Sensor_ID === "2"){
         reqBody.Belonging_to = "K.T.O";
     }
     if(req.body.Sensor_ID === "3"){
-        reqBody.Belonging_to = "НАЧ.ПРОИЗВОДСТВА";
+        reqBody.Belonging_to = "220 NET";
+        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+    }
+    if(req.body.Sensor_ID === "4"){
+        reqBody.Belonging_to = "Place vacated!";
+        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+    }
+    if(req.body.Sensor_ID === "5"){
+        reqBody.Belonging_to = "Accum.";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "NaN"){
@@ -175,7 +188,6 @@ application.use('/',(req,res)=>{
     );
 
     sqldb.mssqlConnectDataPusher(qs);
-   // FBD.child(`Sensor_${req.body.Sensor_ID}/Year_${currentYear}/Month_${currentMonth}/Week_${currentWeekNumber}/Day_${currentDay}/Hour_${currentHour}`).push(reqBody).getKey();
     console.log(reqBody);  
     
 });
@@ -184,5 +196,5 @@ application.use('/',(req,res)=>{
 const httpServer = http.createServer(application);
 httpServer.listen(__PORT,__SERVER_IP);
 
-console.log('Server running at 192.168.0.95:80');
+console.log(`Server running at ${config.__SERVER_IP}:${config.__PORT}`);
 

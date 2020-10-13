@@ -173,3 +173,112 @@ export const Sensor_3 = () => {
         
     );
 }
+
+
+export const Sensor_4 = () => {
+
+    let [data4,stateData4] = useState([]);
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{             
+            fetchData('realtime',stateData4,4);
+            setFetching(false);
+        },5000);
+    
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+    
+    },[]);
+
+    return (
+
+        <div>
+
+        {
+     
+             data4.length > 0 ? 
+    
+    
+            data4.map((item,i)=>{
+    
+            return <DivDataWrapperSensor key = {i}>
+     
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data4[0].sensor_id  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data4[0].belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data4[0].temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data4[0].humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data4[0].voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data4[0].timestamp }    </DivDataContainer>
+     
+                 </DivDataWrapperSensor> 
+    
+                })
+            
+            : 
+                <RotatedImg src = {`${spinner}`} ></RotatedImg>
+    
+            }      
+    
+            </div>
+        
+    );
+}
+
+export const Sensor_5 = () => {
+
+    let [data5,stateData5] = useState([]);
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{             
+            fetchData('realtime',stateData5,5);
+            setFetching(false);
+        },5000);
+    
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+    
+    },[]);
+
+    return (
+
+        <div>
+
+        {
+     
+             data5.length > 0 ? 
+    
+    
+            data5.map((item,i)=>{
+    
+            return <DivDataWrapperSensor key = {i}>
+     
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data5[0].sensor_id  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data5[0].belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data5[0].temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data5[0].humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data5[0].voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data5[0].timestamp }    </DivDataContainer>
+     
+                 </DivDataWrapperSensor> 
+    
+                })
+            
+            : 
+                <RotatedImg src = {`${spinner}`} ></RotatedImg>
+    
+            }      
+    
+            </div>
+        
+    );
+}
