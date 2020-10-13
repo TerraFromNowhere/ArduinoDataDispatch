@@ -6,11 +6,12 @@ import {Choke} from '../choke';
 import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Tooltip,ReferenceLine} from 'recharts';
 import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
 import {fetchData} from '../../dataHandlers/fetchData';
-
+import {connect} from 'react-redux';
+import {store} from '../../../store/store';
 import {GET_DATA} from '../../../actions/actions';
 
 
-export const SensorInfo = (props) => {
+const SensorInfo = () => {
 
     let [data,stateData] = useState([]);
     let [fetching,setFetching] = useState(false);
@@ -19,7 +20,7 @@ export const SensorInfo = (props) => {
 
     const LocalHistory = useHistory();
     const off = dataMaxMinFinder(data) || null;
-    const {dispatch} = props;
+   
     
 return (
 
@@ -36,7 +37,7 @@ return (
                     <ButtonSensorMode onClick = {()=>{fetchData('hour',stateData,seNumber)}}>Данные за час</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{fetchData('day',stateData,seNumber)}}>Данные за день</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{GET_DATA('day',dispatch,seNumber)}}>REDUX</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{store.getState()}}>REDUX</ButtonSensorMode>
 
                 </DivButtonContainer>
 
@@ -107,3 +108,14 @@ return (
         </div>
     )
 }
+
+const mapStateToProps = (state) => ({
+   data : state.data 
+});
+
+const mapDispatchToProps = dispatch => ({
+    data: () => dispatch(GET_DATA('day',seNumber))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(SensorInfo);
+

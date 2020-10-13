@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router,Link,Switch,Route} from "react-router-dom";
 import {Brief} from './pages/brief';
-import {SensorInfo} from '../containers/pages/sensorInfo';
+import SensorInfo from '../containers/pages/sensorInfo';
 import {GeneralTable} from './pages/generalTable';
 import logo from '../img/logoWernox.png';
 import {DivRowFlexHeader,UlFlexNav,LinkNav} from '../containers/styledContainers/sComponents';
