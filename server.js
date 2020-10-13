@@ -152,13 +152,13 @@ application.use('/',(req,res)=>{
     reqBody.Temperature = Math.round(req.body.Temperature)+"";
 
     if(req.body.Sensor_ID === "1"){
-        reqBody.Belonging_to = "UNKNOWN";
+        reqBody.Belonging_to = "Battery";
     }
     if(req.body.Sensor_ID === "2"){
         reqBody.Belonging_to = "K.T.O";
     }
     if(req.body.Sensor_ID === "3"){
-        reqBody.Belonging_to = "НАЧ.ПРОИЗВОДСТВА";
+        reqBody.Belonging_to = "220 net";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "4"){
@@ -166,7 +166,7 @@ application.use('/',(req,res)=>{
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "5"){
-        reqBody.Belonging_to = "Place vacated";
+        reqBody.Belonging_to = "Accum.";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "NaN"){

@@ -282,3 +282,57 @@ export const Sensor_5 = () => {
         
     );
 }
+
+export const Sensor_6 = () => {
+
+    let [data5,stateData6] = useState([]);
+    let [fetching,setFetching] = useState(false);
+
+    useEffect(()=>{
+
+        setFetching(true); 
+        let interval = setInterval(()=>{             
+            fetchData('realtime',stateData6,6);
+            setFetching(false);
+        },5000);
+    
+        return ()=> {
+            clearInterval(interval);
+        }
+        
+    
+    },[]);
+
+    return (
+
+        <div>
+
+        {
+     
+             data6.length > 0 ? 
+    
+    
+            data6.map((item,i)=>{
+    
+            return <DivDataWrapperSensor key = {i}>
+     
+                     <DivDataContainerHeader> НОМЕР СЕНСОРА : { data6[0].sensor_id  }   </DivDataContainerHeader>
+                     <DivDataContainerHeader> ЛОКАЦИЯ : {data6[0].belonging_to  }  </DivDataContainerHeader>
+                     <DivDataContainer> ТЕМПЕРАТУРА : {data6[0].temperature }C</DivDataContainer>
+                     <DivDataContainer> ВЛАЖНОСТЬ : {data6[0].humidity }%      </DivDataContainer>
+                     <DivDataContainer> ВОЛЬТАЖ : {data6[0].voltage  }V        </DivDataContainer>
+                     <DivDataContainer> ПОЛУЧЕНО В : {data6[0].timestamp }    </DivDataContainer>
+     
+                 </DivDataWrapperSensor> 
+    
+                })
+            
+            : 
+                <RotatedImg src = {`${spinner}`} ></RotatedImg>
+    
+            }      
+    
+            </div>
+        
+    );
+}

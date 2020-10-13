@@ -4,7 +4,7 @@ export const submitValidator = (eve,callback) => {
 
     eve.preventDefault();
 
-    if( eve.target.value > 5 || eve.target.value < 1 ){
+    if( eve.target.value > 6 || eve.target.value < 1 ){
         eve.target.value = "";
     }
 
