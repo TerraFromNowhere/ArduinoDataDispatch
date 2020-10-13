@@ -285,7 +285,7 @@ export const Sensor_5 = () => {
 
 export const Sensor_6 = () => {
 
-    let [data5,stateData6] = useState([]);
+    let [data6,stateData6] = useState([]);
     let [fetching,setFetching] = useState(false);
 
     useEffect(()=>{
