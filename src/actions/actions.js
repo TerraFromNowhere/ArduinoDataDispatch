@@ -1,14 +1,13 @@
 import * as types from './actionTypes';
-const __SERVER_IP = require('../../configuration').__SERVER_IP;
 
-export const GET_DATA = (unitOfTime,id) => dispatch => {
+export const GET_DATA = () => {
 
     console.log("GET_DATA triggered");
     
     return {
 
         type : types.GET_DATA,
-        payload : 'DATA'
+        payload : fetchData('day',2)
     }
 }
 
@@ -23,7 +22,7 @@ export const isFetching = () => {
 }
 
 
-const fetchData = () => {
+const fetchData = (unitOfTime,id,dispatch) => {
 
     return fetch(`http://192.168.0.2/${unitOfTime}/${id}`)
         .then(result => {
