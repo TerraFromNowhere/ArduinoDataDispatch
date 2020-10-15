@@ -155,22 +155,22 @@ application.use('/',(req,res)=>{
         reqBody.Belonging_to = "LCD clock";
     }
     if(req.body.Sensor_ID === "2"){
-        reqBody.Belonging_to = "Battery";
+        reqBody.Belonging_to = "Battery (BME280)";
     }
     if(req.body.Sensor_ID === "3"){
-        reqBody.Belonging_to = "220 net №1";
-        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+        reqBody.Belonging_to = "220 net №1 (BMP280)";
+        reqBody.Voltage =  "0.01";
     }
     if(req.body.Sensor_ID === "4"){
-        reqBody.Belonging_to = "220 net №2";
+        reqBody.Belonging_to = "220 net №2 (BME280)";
         reqBody.Voltage = (reqBody.Voltage / 100) + "";
     }
     if(req.body.Sensor_ID === "5"){
-        reqBody.Belonging_to = "Accum.";
-        if(reqBody.Voltage / 100 < 2.5 ){
-            reqBody.Voltage = ">2.5"
-        }
-        reqBody.Voltage = (reqBody.Voltage / 100) + "";
+
+        reqBody.Belonging_to = "Accum.(S701)";    
+        reqBody.Voltage = ">=2.5"    
+       // reqBody.Voltage = (reqBody.Voltage / 100) + "";
+       
     }
     if(req.body.Sensor_ID === "6"){
         reqBody.Belonging_to = "№6";
