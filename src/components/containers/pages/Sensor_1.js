@@ -156,7 +156,7 @@ export const Sensor_3 = () => {
                      <DivDataContainerHeader> НОМЕР СЕНСОРА : { data3[0].sensor_id  }   </DivDataContainerHeader>
                      <DivDataContainerHeader> ЛОКАЦИЯ : {data3[0].belonging_to  }  </DivDataContainerHeader>
                      <DivDataContainer> ТЕМПЕРАТУРА : {data3[0].temperature }C</DivDataContainer>
-                     <DivDataContainer> Давление над У.М : {data3[0].humidity } Pa      </DivDataContainer>
+                     <DivDataContainer> АТМОСФЕРНОЕ ДАВЛЕНИЕ : {data3[0].humidity } Pa      </DivDataContainer>
                      <DivDataContainer> ВОЛЬТАЖ  : {data3[0].voltage  } V  </DivDataContainer>
                      <DivDataContainer> ПОЛУЧЕНО В : {data3[0].timestamp }    </DivDataContainer>
      
@@ -305,7 +305,7 @@ export const Sensor_6 = () => {
 
     return (
 
-        <div>
+        <div style={{display:'none'}}>
 
         {
      

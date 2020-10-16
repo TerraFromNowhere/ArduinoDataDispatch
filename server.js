@@ -28,6 +28,8 @@ let currentWeekNumber = moment().week();
 //db init, return REF
 const F = require('./db/db.js');
 const { json } = require('body-parser');
+const { Console } = require('console');
+const { pool } = require('node-firebird');
 const FBD = F();
 
 
@@ -101,24 +103,41 @@ application.use('/realtime/:id',async (req,res)=>{
     let id = req.originalUrl.split('/')[2];
     const se = `Sensor_` + id;
 
-    try{
-        await sql.connect(credentials);
-        const result = await sql.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
-               
-       if(result.recordset.length === 0){
-        result.recordset[0] = {belonging_to:"Place vacated!",timestamp:"N/A",temperature:"?",humidity:"?",voltage:"?",sensor_id:`${id}`}
-      
-        res.send(result.recordset);
+
+       const pool1 = new sql.ConnectionPool(credentials);
+       const pool2 = new sql.ConnectionPool(credentials);
+    
+
+       try{
+
+            await pool1.connect();
+            const result1 = await pool1.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour} ORDER BY timestamp DESC`);
+            
+            if(result1.recordset.length === 0 ){
+                await pool2.connect();
+                const result2 = await pool1.query(`SELECT TOP 1 * FROM dbo.${se} WHERE year = ${currentYear} AND month = ${currentMonth} AND week = ${currentWeekNumber} AND day = ${currentDay} AND hour = ${currentHour-1} ORDER BY timestamp DESC`); 
+                if(result2.recordset.length === 0){
+                    result2.recordset[0] = {Sensor_ID:"id",Belonging_to:`Something \n went wrong \n with this one \ no data for \n 2 last hour`,Temperature:'N/A',Humidity:'N/A',Voltage:'N/A',timeStamp:'N/A'}
+                }
+                else{
+                    res.send(result2.recordset);
+                }             
+            }
+            else{
+                res.send(result1.recordset);
+            }
+
+            pool1.close();
+            pool2.close();
+            
        }
-       else{
-      
-        res.send(result.recordset);
+       catch(e){
+           console.log(e);
        }
         
-    }
-    catch(e){
-        console.log(e);
-    }
+    
+
+
   
 });
 
