@@ -7,8 +7,7 @@ import {ResponsiveContainer,Label,Area,CartesianGrid,XAxis,YAxis,AreaChart,Toolt
 import {submitValidator,keyNullifier} from '../../dataHandlers/submitValidator';
 import {fetchData} from '../../dataHandlers/fetchData';
 import {useDispatch} from 'react-redux';
-
-import {FETCH_DATA} from '../../../reducers/dataSlice';
+import {getState,GET_DATA} from '../../../reducers/dataSlice';
 
 const SensorInfo = () => {
 
@@ -35,7 +34,7 @@ return (
                     <ButtonSensorMode onClick = {()=>{fetchData('hour',stateData,seNumber)}}>Данные за час</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{fetchData('day',stateData,seNumber)}}>Данные за день</ButtonSensorMode>
                     <ButtonSensorMode onClick = {()=>{LocalHistory.push('/')}}>ВЕРНУТЬСЯ В РТ. РЕЖИМ</ButtonSensorMode>
-                    <ButtonSensorMode onClick = {()=>{dispatch(()=>FETCH_DATA())}}>REDUX</ButtonSensorMode>
+                    <ButtonSensorMode onClick = {()=>{dispatch(GET_DATA('day'))}}>REDUX</ButtonSensorMode>
 
                 </DivButtonContainer>
 
