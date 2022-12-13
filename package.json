@@ -4,7 +4,7 @@
   "description": "Web server which provide sensor data from Arduino Mega 2560 to  user .",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
